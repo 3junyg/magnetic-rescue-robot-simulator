@@ -1,0 +1,12 @@
+__pycache__/
+*.pyc
+.venv/
+.streamlit/secrets.toml
+data/
+models/*
+!models/coverage_agent/
+!models/human_detector/
+models/coverage_agent/*
+!models/coverage_agent/best_coverage_agent.pth
+models/human_detector/*
+!models/human_detector/best_human_transition_detector.pth
