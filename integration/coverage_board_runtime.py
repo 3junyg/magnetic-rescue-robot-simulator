@@ -120,6 +120,7 @@ class CoverageBoardRuntime:
 
     def decide(self, board) -> tuple[str, float]:
         map_obs, vector, coverage = self._observation(board)
+        failed_forward = self.last_action == "forward" and not board.robot.moving
         if coverage > self.last_coverage + 1e-5:
             self.stalled_steps = 0
         else:
@@ -128,12 +129,21 @@ class CoverageBoardRuntime:
         with torch.inference_mode():
             logits, _ = self.model(torch.from_numpy(map_obs[None]).to(self.device), torch.from_numpy(vector[None]).to(self.device))
             action = self.actions[int(torch.argmax(logits, dim=1)[0].cpu())]
-        if self.patrol_mode or self.stalled_steps >= 12 or action == "stop":
+        if self.patrol_mode or self.stalled_steps >= 12 or action == "stop" or failed_forward:
             target_sin, target_cos, _ = self.last_target_features
             relative_angles = (np.asarray(board.range_scan.angles) - board.robot.heading + np.pi) % (2.0 * np.pi) - np.pi
             forward_rays = np.abs(relative_angles) <= np.pi / 12.0
             forward_clearance = float(np.min(board.range_scan.distances[forward_rays])) if np.any(forward_rays) else 0.0
-            if target_cos >= 0.45 and forward_clearance >= 3.5:
+            target_aligned = target_cos >= 0.90 and abs(target_sin) <= 0.35
+            if failed_forward:
+                left_rays = (relative_angles >= np.pi / 12.0) & (relative_angles <= 5.0 * np.pi / 6.0)
+                right_rays = (relative_angles <= -np.pi / 12.0) & (relative_angles >= -5.0 * np.pi / 6.0)
+                left_clearance = float(np.mean(board.range_scan.distances[left_rays])) if np.any(left_rays) else 0.0
+                right_clearance = float(np.mean(board.range_scan.distances[right_rays])) if np.any(right_rays) else 0.0
+                self.turn_direction = 1 if left_clearance >= right_clearance else -1
+                self.turn_streak = 1
+                action = "turn_left" if self.turn_direction > 0 else "turn_right"
+            elif target_aligned and forward_clearance >= 3.5:
                 self.turn_direction = 0
                 self.turn_streak = 0
                 action = "forward"
@@ -150,3 +160,4 @@ class CoverageBoardRuntime:
                     action = "turn_left" if self.turn_direction > 0 else "turn_right"
         self.last_action = action
         return action, coverage
+
