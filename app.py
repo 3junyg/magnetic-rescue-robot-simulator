@@ -66,6 +66,18 @@ def reset(seed: int, environment: str) -> None:
     st.session_state.detector_processed_time = None
 
 
+def update_detector(board: Board) -> None:
+    runtime = st.session_state.detector_runtime
+    if runtime is None or st.session_state.detector_processed_time == board.time:
+        return
+    result = runtime.process_board(board)
+    st.session_state.detector_result = result
+    st.session_state.detector_processed_time = board.time
+    rescue_event = st.session_state.rescue_manager.process(board, result)
+    if rescue_event is not None:
+        runtime.ignore_position(rescue_event.position)
+
+
 def main() -> None:
     initialize()
     st.title("인명 탐지 로봇 시뮬레이션")
@@ -92,12 +104,7 @@ def main() -> None:
             st.rerun()
     board = st.session_state.board
     settings = board.settings
-    if st.session_state.detector_runtime is not None and st.session_state.detector_processed_time != board.time:
-        st.session_state.detector_result = st.session_state.detector_runtime.process_board(board)
-        st.session_state.detector_processed_time = board.time
-        rescue_event = st.session_state.rescue_manager.process(board, st.session_state.detector_result)
-        if rescue_event is not None:
-            st.session_state.detector_runtime.ignore_position(rescue_event.position)
+    update_detector(board)
     if st.session_state.rescue_manager.all_rescued(board):
         st.session_state.running = False
         st.session_state.last_action = "stop"
@@ -180,9 +187,11 @@ def main() -> None:
                 st.session_state.last_action = "forward"
                 st.session_state.coverage_ratio = board.perception.observed.mean()
                 board.step(TIME_STEP)
+            update_detector(board)
         time.sleep(0.06)
         st.rerun()
 
 
 if __name__ == "__main__":
     main()
+
