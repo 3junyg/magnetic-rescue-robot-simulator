@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Magnetic Rescue Robot Simulator</title>
+  <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+  <header>
+    <div>
+      <h1>인명 탐지 로봇 시뮬레이션</h1>
+      <p>Magnetic Rescue Robot Simulator</p>
+    </div>
+    <div class="connection"><span id="connectionDot"></span><span id="connectionText">연결 중</span></div>
+  </header>
+  <main>
+    <aside class="controls panel">
+      <h2>제어</h2>
+      <label>환경<select id="environment"></select></label>
+      <label class="switch-row"><span>로봇 인식 화면</span><input id="perception" type="checkbox"></label>
+      <fieldset>
+        <legend>Navigation Mode</legend>
+        <label class="radio"><input type="radio" name="navigation" value="Manual">Manual</label>
+        <label class="radio"><input type="radio" name="navigation" value="CNN Agent" checked>CNN Agent</label>
+      </fieldset>
+      <label>실행 속도 <output id="speedValue">4</output><input id="speed" type="range" min="1" max="10" value="4"></label>
+      <div class="button-grid">
+        <button id="run" class="primary">실행</button>
+        <button id="stop">정지</button>
+        <button id="reset">초기화</button>
+        <button id="randomize">랜덤 배치</button>
+      </div>
+      <h3>수동 동작</h3>
+      <div class="manual-grid">
+        <button data-action="turn_left">좌회전</button>
+        <button data-action="forward" class="primary">전진</button>
+        <button data-action="turn_right">우회전</button>
+        <button data-action="stop">정지</button>
+      </div>
+      <div class="small-stats">
+        <div><span>상태</span><strong id="simStatus">정지</strong></div>
+        <div><span>시간</span><strong id="simTime">0.0 s</strong></div>
+        <div><span>Seed</span><strong id="seed">42</strong></div>
+      </div>
+    </aside>
+    <section class="simulation panel">
+      <div class="section-title"><h2>시뮬레이션</h2><span id="modeBadge">ACTUAL ENVIRONMENT</span></div>
+      <canvas id="simCanvas"></canvas>
+      <div class="legend">
+        <span><i class="robot"></i>로봇</span><span><i class="person"></i>실제 사람</span><span><i class="metal"></i>금속</span><span><i class="pin"></i>AI 사람 핑</span>
+      </div>
+    </section>
+    <aside class="telemetry">
+      <section class="panel detector-card" id="detectorCard">
+        <div class="section-title"><h2>AI Detector</h2><span id="detectorStatus">WARMING UP</span></div>
+        <div class="probability" id="probability">0.0%</div>
+        <div class="prediction" id="prediction">NO PERSON</div>
+        <div class="progress"><div id="probabilityBar"></div></div>
+        <div class="info-grid">
+          <div><span>Window</span><strong id="window">0/16</strong></div>
+          <div><span>사람 핑</span><strong id="markerCount">0</strong></div>
+          <div><span>예측 인원</span><strong id="estimatedCount">0</strong></div>
+          <div><span>모델</span><strong id="detectorModel">-</strong></div>
+        </div>
+        <canvas id="probabilityCanvas"></canvas>
+        <p class="error" id="detectorError"></p>
+      </section>
+      <section class="panel">
+        <h2>Coverage Agent</h2>
+        <div class="info-grid">
+          <div><span>상태</span><strong id="agentState">EXPLORING</strong></div>
+          <div><span>동작</span><strong id="agentAction">stop</strong></div>
+          <div><span>탐색률</span><strong id="coverage">0.0%</strong></div>
+          <div><span>모델</span><strong id="agentModel">-</strong></div>
+        </div>
+        <p class="error" id="agentError"></p>
+      </section>
+      <section class="panel">
+        <h2>자기장 센서</h2>
+        <div class="sensor-main"><span>|B|</span><strong id="magnitude">0.000</strong></div>
+        <div class="sensor-values"><span>Bx <b id="bx">0</b></span><span>By <b id="by">0</b></span><span>Bz <b id="bz">0</b></span></div>
+        <canvas id="sensorCanvas"></canvas>
+      </section>
+    </aside>
+  </main>
+  <script src="/static/app.js"></script>
+</body>
+</html>
+

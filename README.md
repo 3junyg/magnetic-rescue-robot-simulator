@@ -35,6 +35,13 @@ Coverage 런타임은 탐색 완료 후 최근 방문 셀과 누적 방문 횟�
 
 Streamlit Community Cloud에서 저장소를 연결하고 실행 파일로 `app.py`를 선택합니다.
 
+FastAPI Canvas 웹 앱은 다음 명령으로 실행합니다.
+
+    uvicorn server:app --host 0.0.0.0 --port 8000
+
+Render에서는 저장소의 `render.yaml`을 Blueprint로 연결합니다.
+
 ## 라이선스
 
 MIT License
+

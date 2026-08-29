@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: magnetic-rescue-robot-simulator
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements-render.txt
+    startCommand: uvicorn server:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /health
+    autoDeployTrigger: commit
+
