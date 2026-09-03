@@ -23,8 +23,10 @@ def initialize() -> None:
         st.session_state.environment = next(iter(ENVIRONMENT_PRESETS))
     if "running" not in st.session_state:
         st.session_state.running = False
+    if "noise_level" not in st.session_state:
+        st.session_state.noise_level = 0.0
     if "board" not in st.session_state:
-        st.session_state.board = Board(st.session_state.seed, st.session_state.environment)
+        st.session_state.board = Board(st.session_state.seed, st.session_state.environment, st.session_state.noise_level)
     if "navigation_mode" not in st.session_state:
         st.session_state.navigation_mode = "Manual"
     if "controlled_stepper" not in st.session_state:
@@ -54,7 +56,7 @@ def initialize() -> None:
 def reset(seed: int, environment: str) -> None:
     st.session_state.seed = seed
     st.session_state.environment = environment
-    st.session_state.board = Board(seed, environment)
+    st.session_state.board = Board(seed, environment, st.session_state.noise_level)
     st.session_state.running = False
     st.session_state.controlled_stepper.reset()
     st.session_state.rescue_manager.reset()
@@ -88,6 +90,10 @@ def main() -> None:
         robot_perception = st.toggle("로봇 인식 화면", value=False)
         st.session_state.navigation_mode = st.radio("Navigation Mode", ("Manual", "CNN Agent"), index=(0 if st.session_state.navigation_mode == "Manual" else 1))
         speed = st.slider("실행 속도", 1, 10, 4)
+        noise_level = st.slider("환경 노이즈", 0.0, 5.0, float(st.session_state.noise_level), 0.1)
+        if noise_level != st.session_state.noise_level:
+            st.session_state.noise_level = noise_level
+            st.session_state.board.set_enhanced_noise_level(noise_level)
         controls = st.columns(2)
         if controls[0].button("실행", width="stretch"):
             st.session_state.running = True
@@ -117,7 +123,7 @@ def main() -> None:
     metrics[3].metric("금속", len(board.perception.metal_candidates()) if robot_perception else settings["metals"])
     metrics[4].metric("장애물", settings["obstacles"])
     metrics[5].metric("로봇 사람 추정", len(board.detection_tracker.markers))
-    st.caption(f"구조 처리된 사람: {len(st.session_state.rescue_manager.rescued_indices)}명")
+    st.caption(f"구조 처리된 사람: {len(st.session_state.rescue_manager.rescued_indices)}명 · 환경 노이즈: {st.session_state.noise_level:.1f}")
     map_column, state_column = st.columns([3, 1])
     with map_column:
         figure = render_board(board, robot_perception)

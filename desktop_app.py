@@ -1,5 +1,5 @@
 import matplotlib.pyplot as plt
-from matplotlib.widgets import Button, CheckButtons, RadioButtons
+from matplotlib.widgets import Button, CheckButtons, RadioButtons, Slider
 
 from config import DEFAULT_SEED, ENVIRONMENT_PRESETS, TIME_STEP
 from integration.controlled_stepper import ControlledBoardStepper
@@ -14,7 +14,8 @@ class DesktopSimulationApp:
     def __init__(self) -> None:
         self.seed = DEFAULT_SEED
         self.environment = next(iter(ENVIRONMENT_PRESETS))
-        self.board = Board(self.seed, self.environment)
+        self.noise_level = 0.0
+        self.board = Board(self.seed, self.environment, self.noise_level)
         self.running = False
         self.robot_perception = False
         self.navigation_mode = "Manual"
@@ -46,6 +47,7 @@ class DesktopSimulationApp:
         self.truth_button = CheckButtons(self.figure.add_axes([0.80, 0.29, 0.18, 0.06]), ["Robot Perception"], [False])
         self.environment_button = RadioButtons(self.figure.add_axes([0.80, 0.07, 0.18, 0.18]), list(ENVIRONMENT_PRESETS), active=0)
         self.mode_button = RadioButtons(self.figure.add_axes([0.80, 0.68, 0.18, 0.12]), ["Manual", "CNN Agent"], active=0)
+        self.noise_slider = Slider(self.figure.add_axes([0.80, 0.015, 0.18, 0.025]), "Noise", 0.0, 5.0, valinit=0.0, valstep=0.1)
         self.start_button.on_clicked(self.start)
         self.stop_button.on_clicked(self.stop)
         self.reset_button.on_clicked(self.reset)
@@ -53,6 +55,7 @@ class DesktopSimulationApp:
         self.truth_button.on_clicked(self.toggle_perception)
         self.environment_button.on_clicked(self.change_environment)
         self.mode_button.on_clicked(self.change_mode)
+        self.noise_slider.on_changed(self.change_noise_level)
         self.timer = self.figure.canvas.new_timer(interval=60)
         self.timer.add_callback(self.tick)
         self.timer.start()
@@ -67,14 +70,14 @@ class DesktopSimulationApp:
         self.redraw()
 
     def reset(self, event=None) -> None:
-        self.board = Board(self.seed, self.environment)
+        self.board = Board(self.seed, self.environment, self.noise_level)
         self.running = False
         self._reset_models()
         self.redraw()
 
     def randomize(self, event=None) -> None:
         self.seed += 1
-        self.board = Board(self.seed, self.environment)
+        self.board = Board(self.seed, self.environment, self.noise_level)
         self.running = False
         self._reset_models()
         self.redraw()
@@ -85,7 +88,7 @@ class DesktopSimulationApp:
 
     def change_environment(self, label: str) -> None:
         self.environment = label
-        self.board = Board(self.seed, self.environment)
+        self.board = Board(self.seed, self.environment, self.noise_level)
         self.running = False
         self._reset_models()
         self.redraw()
@@ -103,6 +106,11 @@ class DesktopSimulationApp:
 
     def change_mode(self, label: str) -> None:
         self.navigation_mode = label
+        self.redraw()
+
+    def change_noise_level(self, value: float) -> None:
+        self.noise_level = float(value)
+        self.board.set_enhanced_noise_level(self.noise_level)
         self.redraw()
 
     def tick(self) -> None:
@@ -148,6 +156,7 @@ class DesktopSimulationApp:
             f"Status: {status}\n"
             f"Seed: {self.seed}\n"
             f"Time: {self.board.time:.1f} s\n"
+            f"Noise level: {self.noise_level:.1f}\n"
             f"Bx: {measurement.bx:.3f}\n"
             f"By: {measurement.by:.3f}\n"
             f"Bz: {measurement.bz:.3f}\n"
