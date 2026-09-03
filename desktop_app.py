@@ -14,7 +14,7 @@ class DesktopSimulationApp:
     def __init__(self) -> None:
         self.seed = DEFAULT_SEED
         self.environment = next(iter(ENVIRONMENT_PRESETS))
-        self.noise_level = 0.0
+        self.noise_level = float(ENVIRONMENT_PRESETS[self.environment]["noise"])
         self.board = Board(self.seed, self.environment, self.noise_level)
         self.running = False
         self.robot_perception = False
@@ -47,7 +47,7 @@ class DesktopSimulationApp:
         self.truth_button = CheckButtons(self.figure.add_axes([0.80, 0.29, 0.18, 0.06]), ["Robot Perception"], [False])
         self.environment_button = RadioButtons(self.figure.add_axes([0.80, 0.07, 0.18, 0.18]), list(ENVIRONMENT_PRESETS), active=0)
         self.mode_button = RadioButtons(self.figure.add_axes([0.80, 0.68, 0.18, 0.12]), ["Manual", "CNN Agent"], active=0)
-        self.noise_slider = Slider(self.figure.add_axes([0.80, 0.015, 0.18, 0.025]), "Noise", 0.0, 5.0, valinit=0.0, valstep=0.1)
+        self.noise_slider = Slider(self.figure.add_axes([0.80, 0.015, 0.18, 0.025]), "Noise", 0.0, 5.0, valinit=self.noise_level, valstep=0.01)
         self.start_button.on_clicked(self.start)
         self.stop_button.on_clicked(self.stop)
         self.reset_button.on_clicked(self.reset)

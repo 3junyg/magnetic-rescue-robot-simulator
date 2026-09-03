@@ -24,7 +24,7 @@ def initialize() -> None:
     if "running" not in st.session_state:
         st.session_state.running = False
     if "noise_level" not in st.session_state:
-        st.session_state.noise_level = 0.0
+        st.session_state.noise_level = float(ENVIRONMENT_PRESETS[st.session_state.environment]["noise"])
     if "board" not in st.session_state:
         st.session_state.board = Board(st.session_state.seed, st.session_state.environment, st.session_state.noise_level)
     if "navigation_mode" not in st.session_state:
@@ -90,7 +90,7 @@ def main() -> None:
         robot_perception = st.toggle("로봇 인식 화면", value=False)
         st.session_state.navigation_mode = st.radio("Navigation Mode", ("Manual", "CNN Agent"), index=(0 if st.session_state.navigation_mode == "Manual" else 1))
         speed = st.slider("실행 속도", 1, 10, 4)
-        noise_level = st.slider("환경 노이즈", 0.0, 5.0, float(st.session_state.noise_level), 0.1)
+        noise_level = st.slider("환경 노이즈", 0.0, 5.0, float(st.session_state.noise_level), 0.01)
         if noise_level != st.session_state.noise_level:
             st.session_state.noise_level = noise_level
             st.session_state.board.set_enhanced_noise_level(noise_level)
