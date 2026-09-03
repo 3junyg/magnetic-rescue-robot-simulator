@@ -15,7 +15,7 @@ function setupControls() {
   ui.environment.onchange = event => send("environment", event.target.value);
   ui.perception.onchange = event => send("robot_perception", event.target.checked);
   ui.speed.oninput = event => { ui.speedValue.value = event.target.value; send("speed", Number(event.target.value)); };
-  ui.noiseLevel.oninput = event => { ui.noiseValue.value = Number(event.target.value).toFixed(1); send("noise_level", Number(event.target.value)); };
+  ui.noiseLevel.oninput = event => { ui.noiseValue.value = Number(event.target.value).toFixed(2); send("noise_level", Number(event.target.value)); };
   document.querySelectorAll("input[name=navigation]").forEach(input => input.onchange = event => send("navigation_mode", event.target.value));
   document.querySelectorAll("[data-action]").forEach(button => button.onclick = () => send("manual_action", button.dataset.action));
 }
@@ -60,7 +60,7 @@ function updateInterface(data) {
   ui.speed.value = data.speed;
   ui.speedValue.value = data.speed;
   ui.noiseLevel.value = data.noise_level;
-  ui.noiseValue.value = Number(data.noise_level).toFixed(1);
+  ui.noiseValue.value = Number(data.noise_level).toFixed(2);
   document.querySelector(`input[name=navigation][value="${data.navigation_mode}"]`).checked = true;
   ui.simStatus.textContent = data.status === "running" ? "실행 중" : data.status === "complete" ? "완료" : "정지";
   ui.simTime.textContent = `${data.time.toFixed(1)} s`;

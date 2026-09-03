@@ -18,7 +18,7 @@ class WebSimulationSession:
         self.navigation_mode = "CNN Agent"
         self.manual_action = "forward"
         self.speed = 4
-        self.noise_level = 0.0
+        self.noise_level = float(ENVIRONMENT_PRESETS[self.environment]["noise"])
         self.robot_perception = False
         self.frame = 0
         self.force_full_state = True
@@ -198,7 +198,7 @@ class WebSimulationSession:
             "navigation_mode": self.navigation_mode,
             "manual_action": self.manual_action,
             "speed": self.speed,
-            "noise_level": round(self.noise_level, 1),
+            "noise_level": round(self.noise_level, 2),
             "board": {"width": BOARD_WIDTH, "height": BOARD_HEIGHT, "sensor_range": SENSOR_RANGE},
             "robot": {
                 "x": round(float(board.robot.position[0]), 3),
