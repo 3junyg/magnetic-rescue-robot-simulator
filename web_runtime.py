@@ -18,6 +18,7 @@ class WebSimulationSession:
         self.navigation_mode = "CNN Agent"
         self.manual_action = "forward"
         self.speed = 4
+        self.noise_level = 0.0
         self.robot_perception = False
         self.frame = 0
         self.force_full_state = True
@@ -37,7 +38,7 @@ class WebSimulationSession:
             self.coverage_error = str(error)
         self.stepper = ControlledBoardStepper()
         self.rescue_manager = RescueManager()
-        self.board = Board(self.seed, self.environment)
+        self.board = Board(self.seed, self.environment, self.noise_level)
         self.detector_result = HumanDetectorResult(0.0, 0, "WARMING UP", 0.0, None, 0, 0)
         self._update_detector()
 
@@ -46,7 +47,7 @@ class WebSimulationSession:
             self.seed = seed
         if environment is not None:
             self.environment = environment
-        self.board = Board(self.seed, self.environment)
+        self.board = Board(self.seed, self.environment, self.noise_level)
         self.running = False
         self.last_action = "stop"
         self.coverage_ratio = 0.0
@@ -81,6 +82,9 @@ class WebSimulationSession:
             self.manual_action = str(value)
         elif command_type == "speed":
             self.speed = int(np.clip(int(value), 1, 10))
+        elif command_type == "noise_level":
+            self.noise_level = float(np.clip(float(value), 0.0, 5.0))
+            self.board.set_enhanced_noise_level(self.noise_level)
         elif command_type == "robot_perception":
             self.robot_perception = bool(value)
             self.force_full_state = True
@@ -194,6 +198,7 @@ class WebSimulationSession:
             "navigation_mode": self.navigation_mode,
             "manual_action": self.manual_action,
             "speed": self.speed,
+            "noise_level": round(self.noise_level, 1),
             "board": {"width": BOARD_WIDTH, "height": BOARD_HEIGHT, "sensor_range": SENSOR_RANGE},
             "robot": {
                 "x": round(float(board.robot.position[0]), 3),

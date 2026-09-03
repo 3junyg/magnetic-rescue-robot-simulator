@@ -2,6 +2,7 @@ import numpy as np
 
 from config import BOARD_HEIGHT, BOARD_WIDTH, ENVIRONMENT_PRESETS, HISTORY_LENGTH, METAL_STRENGTH_MAX, METAL_STRENGTH_MIN, PERSON_MAX_SPEED, PERSON_MIN_SPEED, PERSON_SIGNAL_MAX, PERSON_SIGNAL_MIN, ROBOT_RADIUS, ROBOT_SPEED
 from simulation.detection_tracker import DetectionTracker
+from simulation.enhanced_noise import EnhancedNoiseSensor
 from simulation.entities import Metal, Obstacle, Person, Robot
 from simulation.magnetic_field import MagneticFieldSensor
 from simulation.perception import RobotPerception
@@ -9,7 +10,7 @@ from simulation.range_sensor import RangeSensor
 
 
 class Board:
-    def __init__(self, seed: int, environment: str = "도심 침수 지역") -> None:
+    def __init__(self, seed: int, environment: str = "도심 침수 지역", enhanced_noise_level: float = 0.0) -> None:
         self.seed = seed
         self.environment = environment
         self.settings = ENVIRONMENT_PRESETS[environment]
@@ -20,7 +21,7 @@ class Board:
         self.metals = self._create_metals()
         self.robot = Robot(self._free_point(3.0), self.rng.uniform(-np.pi, np.pi), ROBOT_RADIUS, ROBOT_SPEED)
         self.robot.path.append(self.robot.position.copy())
-        self.sensor = MagneticFieldSensor(self.settings["noise"], self.rng)
+        self.sensor = EnhancedNoiseSensor(MagneticFieldSensor(self.settings["noise"], self.rng), seed, enhanced_noise_level)
         self.measurements = [self.sensor.measure(self)]
         self.magnetic_scan = self.sensor.scan(self)
         self.range_sensor = RangeSensor()
@@ -28,6 +29,9 @@ class Board:
         self.perception = RobotPerception()
         self.perception.update(self.robot.position, self.magnetic_scan, self.range_scan)
         self.detection_tracker = DetectionTracker()
+
+    def set_enhanced_noise_level(self, level: float) -> None:
+        self.sensor.set_level(level)
 
     def _create_obstacles(self) -> list[Obstacle]:
         obstacles = []
