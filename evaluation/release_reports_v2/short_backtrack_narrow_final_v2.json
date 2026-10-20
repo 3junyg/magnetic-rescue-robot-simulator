@@ -1,0 +1,146 @@
+[
+  {
+    "seed": 11,
+    "width": 2.6,
+    "bend": true,
+    "reached_step": 23,
+    "collisions": 0,
+    "blocked_forward": 0,
+    "position": [
+      58.75,
+      63.25
+    ]
+  },
+  {
+    "seed": 73,
+    "width": 2.6,
+    "bend": true,
+    "reached_step": 19,
+    "collisions": 0,
+    "blocked_forward": 0,
+    "position": [
+      58.75,
+      63.25
+    ]
+  },
+  {
+    "seed": 99,
+    "width": 2.6,
+    "bend": true,
+    "reached_step": 19,
+    "collisions": 0,
+    "blocked_forward": 0,
+    "position": [
+      58.75,
+      63.25
+    ]
+  },
+  {
+    "seed": 11,
+    "width": 2.8,
+    "bend": true,
+    "reached_step": 23,
+    "collisions": 0,
+    "blocked_forward": 0,
+    "position": [
+      58.75,
+      63.25
+    ]
+  },
+  {
+    "seed": 73,
+    "width": 2.8,
+    "bend": true,
+    "reached_step": 19,
+    "collisions": 0,
+    "blocked_forward": 0,
+    "position": [
+      58.75,
+      63.25
+    ]
+  },
+  {
+    "seed": 99,
+    "width": 2.8,
+    "bend": true,
+    "reached_step": 19,
+    "collisions": 0,
+    "blocked_forward": 0,
+    "position": [
+      58.75,
+      63.25
+    ]
+  },
+  {
+    "seed": 11,
+    "width": 3.2,
+    "bend": true,
+    "reached_step": 23,
+    "collisions": 0,
+    "blocked_forward": 0,
+    "position": [
+      58.25,
+      63.75
+    ]
+  },
+  {
+    "seed": 73,
+    "width": 3.2,
+    "bend": true,
+    "reached_step": 19,
+    "collisions": 0,
+    "blocked_forward": 0,
+    "position": [
+      58.25,
+      63.75
+    ]
+  },
+  {
+    "seed": 99,
+    "width": 3.2,
+    "bend": true,
+    "reached_step": 19,
+    "collisions": 0,
+    "blocked_forward": 0,
+    "position": [
+      58.25,
+      63.75
+    ]
+  },
+  {
+    "seed": 11,
+    "width": 4.0,
+    "bend": true,
+    "reached_step": 27,
+    "collisions": 0,
+    "blocked_forward": 0,
+    "position": [
+      57.25,
+      62.75
+    ]
+  },
+  {
+    "seed": 73,
+    "width": 4.0,
+    "bend": true,
+    "reached_step": 22,
+    "collisions": 0,
+    "blocked_forward": 0,
+    "position": [
+      57.25,
+      62.75
+    ]
+  },
+  {
+    "seed": 99,
+    "width": 4.0,
+    "bend": true,
+    "reached_step": 22,
+    "collisions": 0,
+    "blocked_forward": 0,
+    "position": [
+      57.25,
+      62.75
+    ]
+  }
+]

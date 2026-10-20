@@ -1,0 +1,50 @@
+[
+  {
+    "seed": 73,
+    "kind": "split",
+    "baseline": false,
+    "steps": 2200,
+    "reachable_regions": 150,
+    "visited_regions": 150,
+    "missing_regions": [],
+    "region_coverage": 1.0,
+    "all_visited_step": 990,
+    "right_room_visited": true,
+    "collisions": 0,
+    "longest_stall": 6,
+    "scheduler": {
+      "round": 3,
+      "regions": 150,
+      "visited": 50,
+      "unreachable": 0,
+      "target": [
+        51.875,
+        43.875
+      ]
+    }
+  },
+  {
+    "seed": 73,
+    "kind": "random",
+    "baseline": false,
+    "steps": 2200,
+    "reachable_regions": 150,
+    "visited_regions": 150,
+    "missing_regions": [],
+    "region_coverage": 1.0,
+    "all_visited_step": 1177,
+    "right_room_visited": true,
+    "collisions": 0,
+    "longest_stall": 6,
+    "scheduler": {
+      "round": 2,
+      "regions": 150,
+      "visited": 139,
+      "unreachable": 0,
+      "target": [
+        91.875,
+        3.875
+      ]
+    }
+  }
+]

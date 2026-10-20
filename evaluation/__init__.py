@@ -1,3 +1,3 @@
-from evaluation.localization_score import LocalizationEvaluation, evaluate_localization
+from evaluation.localization_score_v2 import LocalizationEvaluation, evaluate_localization
 
 __all__ = ["LocalizationEvaluation", "evaluate_localization"]
