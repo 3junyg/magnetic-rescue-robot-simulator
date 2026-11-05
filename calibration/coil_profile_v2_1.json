@@ -1,0 +1,95 @@
+{
+  "schema_version": "2.1",
+  "source": "provisional_theory",
+  "input_mode": "theory",
+  "signal_mode": "scaled_v2",
+  "frequency_hz": 2000.0,
+  "tx_radius_m": 0.05,
+  "rx_radius_m": 0.05,
+  "tx_turns": 100,
+  "rx_turns": 100,
+  "tx_current_rms_a": 0.05,
+  "receiver_gain": 1.0,
+  "receiver_output_noise_rms_v": 0.00005813953488372093,
+  "receiver_max_ac_rms_v": 0.009302325581395349,
+  "relay_settings": {"enabled": false, "count": 1, "spacing_cm": 30.0, "axis": "Y"},
+  "primary_cancellation_fraction": 1.0,
+  "world_unit_m": 0.05,
+  "tx_rx_offset_m": 0.03,
+  "detector_input_v_per_unit": 5e-05,
+  "demodulation_phase_deg": 45.0,
+  "coil_segments": 48,
+  "wire_core_m": 0.001,
+  "target_core_m": 0.035,
+  "human_polarizability_m3": 0.0005,
+  "metal_polarizability_m3": 0.004,
+  "human_response_time_s": 2e-05,
+  "metal_response_time_s": 0.00015,
+  "relay_axes": {
+    "X": {
+      "radius_m": 0.0261,
+      "separation_m": 0.029,
+      "turns_per_coil": 34,
+      "inductance_h": 0.0002,
+      "resistance_ohm": 0.3,
+      "capacitance_f": 3.1662869888230556e-05
+    },
+    "Y": {
+      "radius_m": 0.0471,
+      "separation_m": 0.05,
+      "turns_per_coil": 34,
+      "inductance_h": 0.0004,
+      "resistance_ohm": 0.6,
+      "capacitance_f": 1.5831434944115278e-05
+    },
+    "Z": {
+      "radius_m": 0.0771,
+      "separation_m": 0.08,
+      "turns_per_coil": 34,
+      "inductance_h": 0.0008,
+      "resistance_ohm": 0.9,
+      "capacitance_f": 7.915717472057639e-06
+    }
+  },
+  "manual_transfer": {
+    "enabled": false,
+    "reference_current_rms_a": 0.05,
+    "rows": [
+      [
+        0.2,
+        0.0081676538
+      ],
+      [
+        0.3,
+        0.0026507502
+      ],
+      [
+        0.4,
+        0.0011570463
+      ],
+      [
+        0.5,
+        0.00060208476
+      ],
+      [
+        0.6,
+        0.00035155116
+      ],
+      [
+        0.8,
+        0.00014964503000000002
+      ]
+    ]
+  },
+  "measurement_file": "measurements_v2_1.csv",
+  "measurement_medium": "freshwater",
+  "assumptions": [
+    "송신 전류, 이득, 잡음, 중계 L/R/C 및 대상의 반응은 실측 전 가정값",
+    "실험 장치는 단일 TX/RX와 3축 수동 중계이며 정확한 헬름홀츠 배치가 아님",
+    "장면은 1좌표 단위=0.05 m인 합성 축소 모델이며 실물 인체 크기·탐지 거리를 뜻하지 않음",
+    "로봇의 3축 수신과 주변 격자 스캔은 가상 센서이며 단일 RX 실험으로 검증되지 않음",
+    "송신 직접 결합의 이상적인 사전 보상을 가정하며 실제 회로 구현은 검증되지 않음",
+    "동축 실험의 결합 보정값을 공간 전달 모델에 적용하는 부분은 별도 모델 가정",
+    "기존 CNN 가중치를 재사용하며 V2.1 신호에 대한 재학습·정확도 검증 전"
+  ]
+}

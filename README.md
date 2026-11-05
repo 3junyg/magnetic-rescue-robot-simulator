@@ -1,47 +1,57 @@
-# 인명 탐지 로봇 시뮬레이션
+# Magnetic Rescue Robot Simulator — V2.1
 
-자기장 관측과 머신러닝을 이용해 이동하는 사람을 탐지하고, 자율 탐색 로봇이 구조 신호 영역을 순회하는 시뮬레이터입니다.
+자기장 관측으로 사람 후보를 추정하고 환경을 탐색하는 합성 시뮬레이터입니다.
+main은 최신 공개 버전 V2.1입니다. V1은 v1.0.0 태그와 Release에 그대로 보존되며, V2는 v2 브랜치 및 v2.0.0 태그에 있습니다. V2.1 고정 배포본은 v2.1.0 태그와 Release에서 받을 수 있습니다.
+
+## 실행
+
+Python 3.12 환경에서 검사했습니다. 필요한 학습 모델이 포함되어 있습니다.
 
 ```powershell
 python -m pip install -r requirements.txt
 python desktop_app.py
 streamlit run app.py
+uvicorn server:app --host 127.0.0.1 --port 8000
 ```
 
-```powershell
-python -m training.generate_human_dataset
-python -m training.train_human_detector
+PC용 앱 모음은 `python local_apps_v2_1/open_apps_v2_1.py`입니다.
+기존 Streamlit의 app.py 및 Render의 server:app 실행 경로를 유지합니다.
 
-python -m training.collect_detection_failures --output data/detection_failures_v1.npz
-python -m training.generate_hard_human_dataset --output data/human_temporal_v4.npz --episodes 480 --steps 120 --failure-file data/detection_failures_v1.npz
-python -m training.train_temporal_human_models --data data/human_temporal_v4.npz --output-dir models/human_detector_v4 --device cpu
+## V2 대비 변경
 
-python -m training.train_coverage_agent --num-envs 6 --max-steps 1000 --expert-steps 6000 --behavior-epochs 8 --dagger-rounds 1 --dagger-steps 3000 --dagger-epochs 3 --updates 0 --device cpu
-```
+- 예상 설계 또는 직접 입력한 실험 조건·결과를 적용하는 자기장 설정 창.
+- 기본값은 V2와 동일하게 유지하고, 설정 변경은 사람·금속의 공통 반응 배율과 실제 센서 범위에만 반영.
+- 실제 자기장 스캔, 지형 센서, 특징 구간·위치 추정, 기본/Smooth 화면에 동일한 범위 적용.
+- 중계 코일 사용 여부·개수·간격·축으로 예상 전달 배율 계산.
+- 적용 및 예상값으로 초기화. CNN 가중치·핑 판단 기준은 V2 것을 유지.
 
-`generate_human_dataset`는 과거 magnetic scan을 누적해 정적인 금속장 후보를 추정하고, 현재 합성장과 금속 예상장의 차이를 `physics_features`로 저장합니다. 사람 위치는 label 생성에만 사용됩니다.
+사람의 실제 좌표는 신호 생성·평가·구조 처리에 사용하며 CNN 입력으로 전달하지 않습니다.
+실제 인체의 와전류 반응이나 현실의 탐지 거리를 검증한 모델은 아닙니다.
+센서 범위는 16×반응 배율의 세제곱근이라는 합성 가정으로 환산합니다.
+코일 간 실험값은 전달 보정에 사용하며, 인체 반응 계수를 실측한 것으로 해석하지 않습니다.
 
-학습 결과는 `models/human_detector/best_human_transition_detector.pth`에 저장되며 scan, motion, physics feature의 train episode 정규화 파라미터를 함께 포함합니다.
+## 검증 및 현재 한계
 
-길찾기 모델은 관측 누적 지도와 거리 센서만 입력으로 사용하며, `models/coverage_agent/best_coverage_agent.pth`에 저장됩니다. 학습 환경은 도심 침수 지역, 산업 시설, 주거 지역을 순환합니다.
+- 기본 설정은 세 환경에서 각각 600 timestep 동안 V2의 센서·이동·확률·핑·구조 결과와 일치.
+- 전류·중계 설정 8개, 환경 3개, seed 2개, 시나리오 3개를 총 144회·57,275 timestep 검사.
+- 사람 없는 일반 금속/금속 밀집 환경 96회에서 핑 제안 0회.
+- 사람이 있는 환경에서는 높은 배율에서 위치 오탐이 증가했습니다. 아래는 각 설정의 6회 합계입니다.
 
-`train_temporal_human_models`는 실패 사례를 포함한 hard-example 데이터로 사람 존재 detector와 8×16 고해상도 위치 localizer를 각각 학습합니다. `integration.temporal_human_detector_runtime.TemporalHumanDetectorRuntime`은 같은 센서 특징을 사용해 실시간 추론을 수행하며, 현재 기본 앱은 검증된 기존 detector를 유지합니다.
+| 반응 배율 | 핑 제안 | 잘못된 위치의 제안 |
+|---|---:|---:|
+| 1배 | 35 | 1 |
+| 2배 | 39 | 3 |
+| 4배 | 57 | 19 |
+| 약 8.03배 | 73 | 37 |
+| 약 9.89배 | 69 | 40 |
 
-Coverage 런타임은 탐색 완료 후 최근 방문 셀과 누적 방문 횟수를 이용해 patrol 목표를 분산하고, 목표 방향 유지와 최소 회전 조건으로 좁은 영역에서의 반복 선회와 급격한 방향 반전을 줄입니다.
+잘못된 위치는 제안 시점에 아직 구조되지 않은 사람이 거리 6.5 이내에 없는 경우입니다.
+화면에서 병합된 마커 수가 아니라 핑 제안 횟수이며, 실측 탐지 정확도가 아닙니다.
+높은 배율의 오탐 개선·추가 학습은 아직 적용하지 않았습니다.
 
-센서 최적화는 기존 측정 결과를 유지하면서 거리 센서와 인식 지도 갱신을 배열 연산으로 처리하고, 센서 방향·샘플 좌표를 캐시합니다.
+- [상세 설정·수식·실행 방법](README_v2_1.md)
+- [V2 대비 변경 사항](CHANGELOG_v2_1.md)
+- [설정별 검사 원본](evaluation/results/parameter_ping_sweep_v2_1.json)
+- [설정별 검사 요약 CSV](evaluation/results/parameter_ping_sweep_v2_1.csv)
 
-## 웹 실행
-
-Streamlit Community Cloud에서 저장소를 연결하고 실행 파일로 `app.py`를 선택합니다.
-
-FastAPI Canvas 웹 앱은 다음 명령으로 실행합니다.
-
-    uvicorn server:app --host 0.0.0.0 --port 8000
-
-Render에서는 저장소의 `render.yaml`을 Blueprint로 연결합니다.
-
-## 라이선스
-
-MIT License
-
+라이선스는 MIT입니다.

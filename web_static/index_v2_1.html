@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Magnetic Rescue Robot Simulator</title>
+  <link rel="stylesheet" href="/static/styles_v2_1.css">
+</head>
+<body>
+  <header>
+    <div>
+      <h1>인명 탐지 로봇 시뮬레이션 V2.1</h1>
+      <p>Magnetic Rescue Robot Simulator</p>
+    </div>
+    <div class="connection"><span id="connectionDot"></span><span id="connectionText">연결 중</span></div>
+  </header>
+  <main>
+    <aside class="controls panel">
+      <h2>제어</h2>
+      <label>환경<select id="environment"></select></label>
+      <label class="switch-row"><span>로봇 인식 화면</span><input id="perception" type="checkbox"></label>
+      <fieldset>
+        <legend>Navigation Mode</legend>
+        <label class="radio"><input type="radio" name="navigation" value="Manual">Manual</label>
+        <label class="radio"><input type="radio" name="navigation" value="CNN Agent" checked>CNN Agent</label>
+      </fieldset>
+      <label>실행 속도 <output id="speedValue">4</output><input id="speed" type="range" min="1" max="10" value="4"></label>
+      <details id="miPanel">
+        <summary>자기장 설정</summary>
+        <p id="miSource"></p>
+        <p>예상값은 설계만 입력하면 결과를 계산합니다. 실험값은 설계와 결과를 입력합니다. 적용 버튼을 눌러야 반영됩니다.</p>
+        <form id="miForm">
+          <p>V2의 신호 형태·잡음·CNN·핑 판단을 유지하고 물체 반응 세기와 센서 범위만 조절합니다.</p>
+          <label>사용할 값<select id="miMode"><option value="예상값">예상값</option><option value="실험값">실험값</option></select></label>
+          <p>결과는 수신 코일 전압입니다. 코일 중계는 별도 설정에서 정합니다.</p>
+          <h3>① 실험 설계·조건</h3>
+          <label>송신 주파수 (Hz)<input id="miFrequency" type="number" min="0.000001" step="any" required></label>
+          <label>송신 전류 (mA RMS)<input id="miCurrent" type="number" min="0.000001" step="any" required></label>
+          <label>송신 코일 반지름 (cm)<input id="miTxRadius" type="number" min="0.000001" step="any" required></label>
+          <label>송신 코일 감은 횟수 (회)<input id="miTxTurns" type="number" min="1" step="1" required></label>
+          <label>수신 코일 반지름 (cm)<input id="miRxRadius" type="number" min="0.000001" step="any" required></label>
+          <label>수신 코일 감은 횟수 (회)<input id="miRxTurns" type="number" min="1" step="1" required></label>
+          <h3 id="miResultsTitle">② 예상 결과 — 자동 계산</h3>
+          <div id="miVoltages"></div>
+          <p>중계 없음·정렬 0도 기준입니다. 실험값은 두 거리 이상 입력하고 미측정 행은 비우세요.</p>
+          <div class="button-grid">
+            <button class="primary" type="submit">적용</button>
+            <button id="miReset" type="button">예상값으로 처음부터 초기화</button>
+          </div>
+          <p id="miDraftNotice">변경 내용은 적용 버튼을 눌러야 반영됩니다.</p>
+        </form>
+        <p id="miError" class="error"></p>
+        <p id="miOutput"></p>
+      </details>
+      <details id="relayPanel">
+        <summary>코일 중계 설정</summary>
+        <p id="relayActive"></p>
+        <p>같은 간격으로 정렬한 공진 중계 코일의 예상 회로값을 항상 계산합니다.</p>
+        <form id="relayForm">
+          <label class="switch-row"><span>코일 중계 사용</span><input id="relayEnabled" type="checkbox"></label>
+          <label>중계 장치 개수 (1~8개)<input id="relayCount" type="number" min="1" max="8" step="1" required></label>
+          <label>이웃한 코일 장치 중심 간격 (cm)<input id="relaySpacing" type="number" min="0.001" step="any" required></label>
+          <label>전달 방향과 정렬할 코일 축<select id="relayAxis"><option>X</option><option>Y</option><option>Z</option></select></label>
+          <p id="relayResult" style="white-space:pre-line"></p>
+          <p>3축 장치의 선택 축 코일 쌍을 사용합니다. L/R/C는 실측 전 가정값이며 신호가 감소할 수도 있습니다.</p>
+          <p>동축 링크의 전압 크기 배율만 물체 반응과 센서 범위에 반영합니다. 위상은 표시만 합니다.</p>
+          <button class="primary" type="submit">적용</button>
+          <p id="relayNotice"></p>
+          <p id="relayError" class="error"></p>
+        </form>
+      </details>
+      <div class="button-grid">
+        <button id="run" class="primary">실행</button>
+        <button id="stop">정지</button>
+        <button id="reset">초기화</button>
+        <button id="randomize">랜덤 배치</button>
+      </div>
+      <h3>수동 동작</h3>
+      <div class="manual-grid">
+        <button data-action="turn_left">좌회전</button>
+        <button data-action="forward" class="primary">전진</button>
+        <button data-action="turn_right">우회전</button>
+        <button data-action="stop">정지</button>
+      </div>
+      <div class="small-stats">
+        <div><span>상태</span><strong id="simStatus">정지</strong></div>
+        <div><span>시간</span><strong id="simTime">0.0 s</strong></div>
+        <div><span>Seed</span><strong id="seed">42</strong></div>
+      </div>
+    </aside>
+    <section class="simulation panel">
+      <div class="section-title"><h2>시뮬레이션</h2><span id="modeBadge">ACTUAL ENVIRONMENT</span></div>
+      <canvas id="simCanvas"></canvas>
+      <div class="legend">
+        <span><i class="robot"></i>로봇</span><span><i class="person"></i>실제 사람</span><span><i class="metal"></i>금속</span><span><i class="pin"></i>AI 사람 핑</span>
+      </div>
+    </section>
+    <aside class="telemetry">
+      <section class="panel detector-card" id="detectorCard">
+        <div class="section-title"><h2>AI Detector</h2><span id="detectorStatus">WARMING UP</span></div>
+        <div class="probability" id="probability">0.0%</div>
+        <div class="prediction" id="prediction">NO PERSON</div>
+        <div class="progress"><div id="probabilityBar"></div></div>
+        <div class="info-grid">
+          <div><span>Window</span><strong id="window">0/16</strong></div>
+          <div><span>사람 핑</span><strong id="markerCount">0</strong></div>
+          <div><span>예측 인원</span><strong id="estimatedCount">0</strong></div>
+          <div><span>핑 판단</span><strong id="decisionMode">NONE</strong></div>
+          <div><span>모델</span><strong id="detectorModel">-</strong></div>
+        </div>
+        <canvas id="probabilityCanvas"></canvas>
+        <p class="error" id="detectorError"></p>
+      </section>
+      <section class="panel">
+        <h2>Coverage Agent</h2>
+        <div class="info-grid">
+          <div><span>상태</span><strong id="agentState">EXPLORING</strong></div>
+          <div><span>동작</span><strong id="agentAction">stop</strong></div>
+          <div><span>탐색률</span><strong id="coverage">0.0%</strong></div>
+          <div><span>모델</span><strong id="agentModel">-</strong></div>
+        </div>
+        <p class="error" id="agentError"></p>
+      </section>
+      <section class="panel">
+        <h2>자기장 센서</h2>
+        <div class="sensor-main"><span>|B|</span><strong id="magnitude">0.000</strong></div>
+        <div class="sensor-values"><span>Bx <b id="bx">0</b></span><span>By <b id="by">0</b></span><span>Bz <b id="bz">0</b></span></div>
+        <canvas id="sensorCanvas"></canvas>
+      </section>
+    </aside>
+  </main>
+  <script src="/static/app_v2_1.js"></script>
+</body>
+</html>
