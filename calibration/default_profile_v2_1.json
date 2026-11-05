@@ -1,0 +1,43 @@
+{
+  "schema_version": "2.1",
+  "source": "provisional_theory",
+  "input_mode": "theory",
+  "signal_mode": "scaled_v2",
+  "frequency_hz": 2000.0,
+  "tx_radius_m": 0.05,
+  "rx_radius_m": 0.05,
+  "tx_turns": 100,
+  "rx_turns": 100,
+  "tx_current_rms_a": 0.05,
+  "receiver_gain": 1.0,
+  "receiver_output_noise_rms_v": 0.000029069767441860465,
+  "receiver_max_ac_rms_v": 0.009302325581395349,
+  "relay_settings": {"enabled": false, "count": 1, "spacing_cm": 30.0, "axis": "Y"},
+  "primary_cancellation_fraction": 1.0,
+  "world_unit_m": 0.05,
+  "tx_rx_offset_m": 0.03,
+  "detector_input_v_per_unit": 0.00005,
+  "demodulation_phase_deg": 45.0,
+  "coil_segments": 48,
+  "wire_core_m": 0.001,
+  "target_core_m": 0.035,
+  "human_polarizability_m3": 0.0005,
+  "metal_polarizability_m3": 0.004,
+  "human_response_time_s": 0.00002,
+  "metal_response_time_s": 0.00015,
+  "relay_axes": {
+    "X": {"radius_m": 0.0261, "separation_m": 0.029, "turns_per_coil": 34, "inductance_h": 0.0002, "resistance_ohm": 0.3, "capacitance_f": 0.000031662869888230556},
+    "Y": {"radius_m": 0.0471, "separation_m": 0.05, "turns_per_coil": 34, "inductance_h": 0.0004, "resistance_ohm": 0.6, "capacitance_f": 0.000015831434944115278},
+    "Z": {"radius_m": 0.0771, "separation_m": 0.08, "turns_per_coil": 34, "inductance_h": 0.0008, "resistance_ohm": 0.9, "capacitance_f": 0.000007915717472057639}
+  },
+  "manual_transfer": {"enabled": false, "reference_current_rms_a": 0.05, "rows": []},
+  "design_distances_cm": [20, 30, 40, 50, 60, 80],
+  "voltage_location": "coil_input",
+  "measurement_file": "measurements_v2_1.csv",
+  "measurement_medium": "freshwater",
+  "assumptions": [
+    "코일과 회로의 초기값은 실측 전 이론 가정값입니다.",
+    "사람·금속의 반응, 3축 격자 스캔과 직접 결합 제거는 합성 가정입니다.",
+    "기존 V2 CNN을 재사용하며 새 신호의 정확도는 별도 검증이 필요합니다."
+  ]
+}

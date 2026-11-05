@@ -1,0 +1,36 @@
+{
+  "mode": "v2",
+  "comparison": "sensor_scan_robot_probability_markers_rescue_every_step",
+  "results": [
+    {
+      "seed": 42,
+      "environment": "도심 침수 지역",
+      "steps_each": 600,
+      "exact_match": true,
+      "digest": "91db801331fd1f5d4602a0b6197f61c06a134c09a8d969d4b832cfd22d41ed65",
+      "markers": 6,
+      "rescued": 8,
+      "time": 240.00000000000233
+    },
+    {
+      "seed": 73,
+      "environment": "산업 시설",
+      "steps_each": 600,
+      "exact_match": true,
+      "digest": "df83fe7c56485d479d29310ffb88f96bbf660625fdb48c5c2acb93fab0318304",
+      "markers": 4,
+      "rescued": 5,
+      "time": 240.00000000000233
+    },
+    {
+      "seed": 99,
+      "environment": "주거 지역",
+      "steps_each": 600,
+      "exact_match": true,
+      "digest": "89c428dd6c3d333e09379ab1bd608bce0899434ab2b5bfdcac5053746a520063",
+      "markers": 8,
+      "rescued": 12,
+      "time": 240.00000000000233
+    }
+  ]
+}
