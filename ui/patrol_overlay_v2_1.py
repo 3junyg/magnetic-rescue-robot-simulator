@@ -34,4 +34,3 @@ def draw_patrol_overlay(axis, runtime, position: np.ndarray) -> None:
     legend = axis.legend(handles=[Patch(facecolor='#43a047', alpha=0.5, label='이번 순찰 방문'), Patch(facecolor='#ffb300', alpha=0.5, label='이번 순찰 미방문'), Line2D([], [], marker='*', color='#00acc1', linestyle='--', label='순찰 목표 / 계획 경로')], loc='lower left', fontsize=8)
     if previous_legend is not None:
         axis.add_artist(previous_legend)
-

@@ -477,4 +477,3 @@ class CoverageBoardRuntime:
         error = (desired - heading + np.pi) % (2 * np.pi) - np.pi
         action = 'forward' if abs(error) <= np.deg2rad(NAV_HEADING_TOLERANCE_DEGREES) else ('turn_left' if error > 0 else 'turn_right')
         return NavigationAction(action, desired, min(2.0, float(np.linalg.norm(offset))), recovery)
-

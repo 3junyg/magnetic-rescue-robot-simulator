@@ -90,4 +90,3 @@ def render_smooth_perception(board: Board):
     draw_smooth_perception(axis, board)
     figure.tight_layout()
     return figure
-

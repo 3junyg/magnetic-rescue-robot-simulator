@@ -57,4 +57,3 @@ async def simulation_socket(websocket: WebSocket) -> None:
         receiver.cancel()
         with contextlib.suppress(asyncio.CancelledError, WebSocketDisconnect):
             await receiver
-

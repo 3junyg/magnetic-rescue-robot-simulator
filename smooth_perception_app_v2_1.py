@@ -15,4 +15,3 @@ class SmoothPerceptionApp(desktop_app_v2_1.DesktopSimulationApp):
 
 if __name__ == "__main__":
     SmoothPerceptionApp().show()
-

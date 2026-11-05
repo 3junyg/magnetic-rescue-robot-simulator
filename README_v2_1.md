@@ -129,4 +129,3 @@ Render에서는 저장소의 `render_v2_1.yaml`을 Blueprint로 연결합니다.
 ## 라이선스
 
 MIT License
-

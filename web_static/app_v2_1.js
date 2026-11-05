@@ -359,4 +359,3 @@ function drawSimulation() {
 setupControls();
 connect();
 requestAnimationFrame(drawSimulation);
-

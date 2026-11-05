@@ -316,4 +316,3 @@ class WebSimulationSession:
                 "error": self.mi_error,
             }
         return state
-
