@@ -1,3 +1,5 @@
+from matplotlib.colors import PowerNorm
+from config import METAL_SIGNAL_MULTIPLIER
 import matplotlib.pyplot as plt
 from matplotlib import font_manager
 from matplotlib.patches import Circle, Rectangle
@@ -19,7 +21,7 @@ def draw_board(axis, board: Board, robot_perception: bool) -> None:
         observed = np.where(board.perception.observed, 1.0, np.nan)
         axis.imshow(observed, origin="lower", extent=[0, BOARD_WIDTH, 0, BOARD_HEIGHT], cmap="Blues", alpha=0.2, vmin=0.0, vmax=1.0, zorder=0)
         anomaly = board.perception.magnetic_anomaly()
-        axis.imshow(anomaly, origin="lower", extent=[0, BOARD_WIDTH, 0, BOARD_HEIGHT], cmap="YlOrBr", alpha=0.55, vmin=0.0, vmax=25.0, zorder=1)
+        axis.imshow(anomaly, origin="lower", extent=[0, BOARD_WIDTH, 0, BOARD_HEIGHT], cmap="YlOrBr", alpha=0.55, norm=PowerNorm(gamma=0.5, vmin=0.0, vmax=25.0 * METAL_SIGNAL_MULTIPLIER * getattr(getattr(board.sensor, "field_model", None), "strength_factor", 1.0), clip=True), zorder=1)
         if board.perception.obstacle_points:
             points = np.asarray(board.perception.obstacle_points)
             axis.scatter(points[:, 0], points[:, 1], marker=".", s=13, color="#263238", label="Perceived obstacle", zorder=3)
