@@ -320,7 +320,7 @@ function drawSimulation() {
     perception.cells.forEach(cell => {
       const x = offsetX + cell[0] * perception.cell_size * scale;
       const y = height - offsetY - (cell[1] + 1) * perception.cell_size * scale;
-      ctx.fillStyle = cell[2] == null ? "rgba(56,136,190,.16)" : `rgba(245,124,0,${Math.min(.72, .12 + cell[2] / 38)})`;
+      ctx.fillStyle = cell[2] == null ? "rgba(56,136,190,.16)" : `rgba(245,124,0,${Math.min(.72, .12 + 0.60 * Math.sqrt(Math.max(0, cell[2]) / (perception.color_max || 491228070.1754386)))})`;
       ctx.fillRect(x, y, perception.cell_size * scale + .4, perception.cell_size * scale + .4);
     });
     ctx.strokeStyle = "rgba(88,120,145,.32)"; ctx.lineWidth = .6;

@@ -1,0 +1,1730 @@
+{
+  "steps_limit": 400,
+  "seeds": [
+    42,
+    73
+  ],
+  "cases": 18,
+  "total_steps": 7200,
+  "wall_seconds": 45.233514899999136,
+  "correctness_distance": 6.5,
+  "metric": "proposals_within_6.5_of_not_yet_rescued_person_at_proposal_time",
+  "limitations": [
+    "synthetic_environments",
+    "two_seeds_not_population_estimate",
+    "proximity_precision_not_identity_accuracy",
+    "rescues_may_occur_later_at_old_pins"
+  ],
+  "weights_unchanged": true,
+  "weights": {
+    "models\\candidate_verifier\\best_candidate_verifier_v2_1.pth": "59b68bc89f8deada47985c2c9f6130ecbd5aa3b0e39d7ff73c184fda082a3fda",
+    "models\\coverage_agent\\best_coverage_agent_v2_1.pth": "99510362150f82c6b843ae2342a1216fa89eb835596afc8438ce39510316f3f0",
+    "models\\human_detector\\best_human_transition_detector_v2_1.pth": "f1ba3081aa0704ea5717406d8defaf9c515c9a4e24930bbe49afef5c9aa2a252",
+    "models\\human_detector_noise_robust\\best_human_transition_detector_v2_1.pth": "501a3c335f3654bc1fcbd2c8534c6a48837da041bb0c75c5c8ddf67c6d2f9e89",
+    "models\\human_detector_v4\\best_temporal_human_models_v2_1.pth": "4b5048eaaff65657aa340acf05d5f2195fc5ef8453d40eb40de418aa94dbe2a2"
+  },
+  "summary": [
+    {
+      "scenario": "cluster_none",
+      "setting": "baseline_50",
+      "runs": 6,
+      "steps": 2400,
+      "strength_factor": 1.0,
+      "sensor_range": 16.0,
+      "ping_proposals": 20,
+      "correct_proposals": 0,
+      "false_proposals": 20,
+      "unique_markers": 18,
+      "proposal_precision": 0.0,
+      "false_per_100_steps": 0.8333333333333334,
+      "rescued": 0,
+      "initial_people": 0,
+      "duplicates_near_rescued": 0,
+      "max_proposals_25_steps": 3
+    },
+    {
+      "scenario": "no_people",
+      "setting": "baseline_50",
+      "runs": 6,
+      "steps": 2400,
+      "strength_factor": 1.0,
+      "sensor_range": 16.0,
+      "ping_proposals": 13,
+      "correct_proposals": 0,
+      "false_proposals": 13,
+      "unique_markers": 13,
+      "proposal_precision": 0.0,
+      "false_per_100_steps": 0.5416666666666667,
+      "rescued": 0,
+      "initial_people": 0,
+      "duplicates_near_rescued": 0,
+      "max_proposals_25_steps": 1
+    },
+    {
+      "scenario": "regular",
+      "setting": "baseline_50",
+      "runs": 6,
+      "steps": 2400,
+      "strength_factor": 1.0,
+      "sensor_range": 16.0,
+      "ping_proposals": 42,
+      "correct_proposals": 28,
+      "false_proposals": 14,
+      "unique_markers": 41,
+      "proposal_precision": 0.6666666666666666,
+      "false_per_100_steps": 0.5833333333333334,
+      "rescued": 38,
+      "initial_people": 62,
+      "duplicates_near_rescued": 1,
+      "max_proposals_25_steps": 2
+    }
+  ],
+  "records": [
+    {
+      "setting": "baseline_50",
+      "scenario": "no_people",
+      "environment": "도심 침수 지역",
+      "seed": 42,
+      "requested_steps": 400,
+      "steps": 400,
+      "simulation_time": 160.0000000000012,
+      "initial_people": 0,
+      "current_ma": 50.0,
+      "relay_gain": 1.0,
+      "strength_factor": 1.0,
+      "sensor_range": 16.0,
+      "ping_proposals": 2,
+      "correct_proposals": 0,
+      "false_proposals": 2,
+      "unique_markers": 2,
+      "merged_marker_updates": 0,
+      "duplicates_near_rescued": 0,
+      "false_near_metal": 1,
+      "max_proposals_25_steps": 1,
+      "proposal_precision": 0.0,
+      "proposals_per_100_steps": 0.5,
+      "false_per_100_steps": 0.5,
+      "predicted_person_steps": 40,
+      "person_in_range_steps": 0,
+      "rescued": 0,
+      "path_length": 475.12838490768326,
+      "coverage": 0.7270833333333333,
+      "wall_seconds": 7.20129420000012,
+      "events": [
+        {
+          "step": 110,
+          "time": 43.99999999999991,
+          "position": [
+            63.0,
+            15.0
+          ],
+          "distance_to_unrescued": null,
+          "near_unrescued": false,
+          "near_already_rescued_only": false,
+          "near_metal": false,
+          "decision_mode": "WORLD_DELTA",
+          "probability": 0.0
+        },
+        {
+          "step": 393,
+          "time": 157.20000000000115,
+          "position": [
+            51.13275,
+            53.072250000000004
+          ],
+          "distance_to_unrescued": null,
+          "near_unrescued": false,
+          "near_already_rescued_only": false,
+          "near_metal": true,
+          "decision_mode": "ACCUMULATED",
+          "probability": 1.0
+        }
+      ]
+    },
+    {
+      "setting": "baseline_50",
+      "scenario": "no_people",
+      "environment": "도심 침수 지역",
+      "seed": 73,
+      "requested_steps": 400,
+      "steps": 400,
+      "simulation_time": 160.0000000000012,
+      "initial_people": 0,
+      "current_ma": 50.0,
+      "relay_gain": 1.0,
+      "strength_factor": 1.0,
+      "sensor_range": 16.0,
+      "ping_proposals": 0,
+      "correct_proposals": 0,
+      "false_proposals": 0,
+      "unique_markers": 0,
+      "merged_marker_updates": 0,
+      "duplicates_near_rescued": 0,
+      "false_near_metal": 0,
+      "max_proposals_25_steps": 0,
+      "proposal_precision": null,
+      "proposals_per_100_steps": 0.0,
+      "false_per_100_steps": 0.0,
+      "predicted_person_steps": 134,
+      "person_in_range_steps": 0,
+      "rescued": 0,
+      "path_length": 478.23250456790447,
+      "coverage": 0.6416666666666667,
+      "wall_seconds": 8.266168500005733,
+      "events": []
+    },
+    {
+      "setting": "baseline_50",
+      "scenario": "no_people",
+      "environment": "산업 시설",
+      "seed": 42,
+      "requested_steps": 400,
+      "steps": 400,
+      "simulation_time": 160.0000000000012,
+      "initial_people": 0,
+      "current_ma": 50.0,
+      "relay_gain": 1.0,
+      "strength_factor": 1.0,
+      "sensor_range": 16.0,
+      "ping_proposals": 6,
+      "correct_proposals": 0,
+      "false_proposals": 6,
+      "unique_markers": 6,
+      "merged_marker_updates": 0,
+      "duplicates_near_rescued": 0,
+      "false_near_metal": 2,
+      "max_proposals_25_steps": 1,
+      "proposal_precision": 0.0,
+      "proposals_per_100_steps": 1.5,
+      "false_per_100_steps": 1.5,
+      "predicted_person_steps": 95,
+      "person_in_range_steps": 0,
+      "rescued": 0,
+      "path_length": 466.7242739285262,
+      "coverage": 0.6620833333333334,
+      "wall_seconds": 7.415073999989545,
+      "events": [
+        {
+          "step": 38,
+          "time": 15.200000000000008,
+          "position": [
+            109.0,
+            43.0
+          ],
+          "distance_to_unrescued": null,
+          "near_unrescued": false,
+          "near_already_rescued_only": false,
+          "near_metal": false,
+          "decision_mode": "WORLD_DELTA",
+          "probability": 0.0
+        },
+        {
+          "step": 110,
+          "time": 43.99999999999991,
+          "position": [
+            89.0,
+            31.0
+          ],
+          "distance_to_unrescued": null,
+          "near_unrescued": false,
+          "near_already_rescued_only": false,
+          "near_metal": false,
+          "decision_mode": "WORLD_DELTA",
+          "probability": 0.0
+        },
+        {
+          "step": 149,
+          "time": 59.59999999999985,
+          "position": [
+            59.0,
+            31.0
+          ],
+          "distance_to_unrescued": null,
+          "near_unrescued": false,
+          "near_already_rescued_only": false,
+          "near_metal": true,
+          "decision_mode": "WORLD_DELTA",
+          "probability": 0.0
+        },
+        {
+          "step": 221,
+          "time": 88.40000000000018,
+          "position": [
+            44.0,
+            31.0
+          ],
+          "distance_to_unrescued": null,
+          "near_unrescued": false,
+          "near_already_rescued_only": false,
+          "near_metal": false,
+          "decision_mode": "WORLD_DELTA",
+          "probability": 0.0
+        },
+        {
+          "step": 350,
+          "time": 140.0000000000009,
+          "position": [
+            37.50756805311126,
+            0.0
+          ],
+          "distance_to_unrescued": null,
+          "near_unrescued": false,
+          "near_already_rescued_only": false,
+          "near_metal": false,
+          "decision_mode": "PROXIMITY",
+          "probability": 1.0
+        },
+        {
+          "step": 395,
+          "time": 158.00000000000117,
+          "position": [
+            37.544500000000006,
+            40.062250000000006
+          ],
+          "distance_to_unrescued": null,
+          "near_unrescued": false,
+          "near_already_rescued_only": false,
+          "near_metal": true,
+          "decision_mode": "ACCUMULATED",
+          "probability": 1.0
+        }
+      ]
+    },
+    {
+      "setting": "baseline_50",
+      "scenario": "no_people",
+      "environment": "산업 시설",
+      "seed": 73,
+      "requested_steps": 400,
+      "steps": 400,
+      "simulation_time": 160.0000000000012,
+      "initial_people": 0,
+      "current_ma": 50.0,
+      "relay_gain": 1.0,
+      "strength_factor": 1.0,
+      "sensor_range": 16.0,
+      "ping_proposals": 3,
+      "correct_proposals": 0,
+      "false_proposals": 3,
+      "unique_markers": 3,
+      "merged_marker_updates": 0,
+      "duplicates_near_rescued": 0,
+      "false_near_metal": 3,
+      "max_proposals_25_steps": 1,
+      "proposal_precision": 0.0,
+      "proposals_per_100_steps": 0.75,
+      "false_per_100_steps": 0.75,
+      "predicted_person_steps": 81,
+      "person_in_range_steps": 0,
+      "rescued": 0,
+      "path_length": 487.5714005730779,
+      "coverage": 0.6070833333333333,
+      "wall_seconds": 7.106644699990284,
+      "events": [
+        {
+          "step": 66,
+          "time": 26.39999999999997,
+          "position": [
+            73.0,
+            64.1
+          ],
+          "distance_to_unrescued": null,
+          "near_unrescued": false,
+          "near_already_rescued_only": false,
+          "near_metal": true,
+          "decision_mode": "FAST",
+          "probability": 1.0
+        },
+        {
+          "step": 167,
+          "time": 66.79999999999987,
+          "position": [
+            107.0,
+            3.0
+          ],
+          "distance_to_unrescued": null,
+          "near_unrescued": false,
+          "near_already_rescued_only": false,
+          "near_metal": true,
+          "decision_mode": "FAST",
+          "probability": 1.0
+        },
+        {
+          "step": 400,
+          "time": 160.0000000000012,
+          "position": [
+            107.0,
+            21.9
+          ],
+          "distance_to_unrescued": null,
+          "near_unrescued": false,
+          "near_already_rescued_only": false,
+          "near_metal": true,
+          "decision_mode": "PROXIMITY",
+          "probability": 1.0
+        }
+      ]
+    },
+    {
+      "setting": "baseline_50",
+      "scenario": "no_people",
+      "environment": "주거 지역",
+      "seed": 42,
+      "requested_steps": 400,
+      "steps": 400,
+      "simulation_time": 160.0000000000012,
+      "initial_people": 0,
+      "current_ma": 50.0,
+      "relay_gain": 1.0,
+      "strength_factor": 1.0,
+      "sensor_range": 16.0,
+      "ping_proposals": 1,
+      "correct_proposals": 0,
+      "false_proposals": 1,
+      "unique_markers": 1,
+      "merged_marker_updates": 0,
+      "duplicates_near_rescued": 0,
+      "false_near_metal": 1,
+      "max_proposals_25_steps": 1,
+      "proposal_precision": 0.0,
+      "proposals_per_100_steps": 0.25,
+      "false_per_100_steps": 0.25,
+      "predicted_person_steps": 85,
+      "person_in_range_steps": 0,
+      "rescued": 0,
+      "path_length": 504.25791680399817,
+      "coverage": 0.8670833333333333,
+      "wall_seconds": 7.12751799999387,
+      "events": [
+        {
+          "step": 71,
+          "time": 28.399999999999963,
+          "position": [
+            13.0,
+            65.0
+          ],
+          "distance_to_unrescued": null,
+          "near_unrescued": false,
+          "near_already_rescued_only": false,
+          "near_metal": true,
+          "decision_mode": "PROXIMITY",
+          "probability": 1.0
+        }
+      ]
+    },
+    {
+      "setting": "baseline_50",
+      "scenario": "no_people",
+      "environment": "주거 지역",
+      "seed": 73,
+      "requested_steps": 400,
+      "steps": 400,
+      "simulation_time": 160.0000000000012,
+      "initial_people": 0,
+      "current_ma": 50.0,
+      "relay_gain": 1.0,
+      "strength_factor": 1.0,
+      "sensor_range": 16.0,
+      "ping_proposals": 1,
+      "correct_proposals": 0,
+      "false_proposals": 1,
+      "unique_markers": 1,
+      "merged_marker_updates": 0,
+      "duplicates_near_rescued": 0,
+      "false_near_metal": 0,
+      "max_proposals_25_steps": 1,
+      "proposal_precision": 0.0,
+      "proposals_per_100_steps": 0.25,
+      "false_per_100_steps": 0.25,
+      "predicted_person_steps": 74,
+      "person_in_range_steps": 0,
+      "rescued": 0,
+      "path_length": 501.5407748151331,
+      "coverage": 0.8158333333333333,
+      "wall_seconds": 6.96699390001595,
+      "events": [
+        {
+          "step": 277,
+          "time": 110.8000000000005,
+          "position": [
+            48.5,
+            75.0
+          ],
+          "distance_to_unrescued": null,
+          "near_unrescued": false,
+          "near_already_rescued_only": false,
+          "near_metal": false,
+          "decision_mode": "WORLD_DELTA",
+          "probability": 0.0
+        }
+      ]
+    },
+    {
+      "setting": "baseline_50",
+      "scenario": "regular",
+      "environment": "도심 침수 지역",
+      "seed": 42,
+      "requested_steps": 400,
+      "steps": 400,
+      "simulation_time": 160.0000000000012,
+      "initial_people": 10,
+      "current_ma": 50.0,
+      "relay_gain": 1.0,
+      "strength_factor": 1.0,
+      "sensor_range": 16.0,
+      "ping_proposals": 5,
+      "correct_proposals": 4,
+      "false_proposals": 1,
+      "unique_markers": 5,
+      "merged_marker_updates": 0,
+      "duplicates_near_rescued": 0,
+      "false_near_metal": 1,
+      "max_proposals_25_steps": 1,
+      "proposal_precision": 0.8,
+      "proposals_per_100_steps": 1.25,
+      "false_per_100_steps": 0.25,
+      "predicted_person_steps": 39,
+      "person_in_range_steps": 143,
+      "rescued": 4,
+      "path_length": 475.12838490768326,
+      "coverage": 0.7270833333333333,
+      "wall_seconds": 6.739386899978854,
+      "events": [
+        {
+          "step": 35,
+          "time": 14.000000000000007,
+          "position": [
+            91.0,
+            26.875
+          ],
+          "distance_to_unrescued": 0.38270031741219107,
+          "near_unrescued": true,
+          "near_already_rescued_only": false,
+          "near_metal": false,
+          "decision_mode": "WORLD_DELTA",
+          "probability": 0.0
+        },
+        {
+          "step": 71,
+          "time": 28.399999999999963,
+          "position": [
+            86.0,
+            5.0
+          ],
+          "distance_to_unrescued": 1.3433277531397336,
+          "near_unrescued": true,
+          "near_already_rescued_only": false,
+          "near_metal": false,
+          "decision_mode": "WORLD_DELTA",
+          "probability": 0.0
+        },
+        {
+          "step": 107,
+          "time": 42.79999999999991,
+          "position": [
+            54.0,
+            15.25
+          ],
+          "distance_to_unrescued": 0.22165041676752448,
+          "near_unrescued": true,
+          "near_already_rescued_only": false,
+          "near_metal": true,
+          "decision_mode": "WORLD_DELTA",
+          "probability": 0.0
+        },
+        {
+          "step": 205,
+          "time": 82.00000000000009,
+          "position": [
+            13.0,
+            32.1
+          ],
+          "distance_to_unrescued": 4.4432348565057165,
+          "near_unrescued": true,
+          "near_already_rescued_only": false,
+          "near_metal": false,
+          "decision_mode": "FAST",
+          "probability": 1.0
+        },
+        {
+          "step": 391,
+          "time": 156.40000000000114,
+          "position": [
+            49.0,
+            51.900000000000006
+          ],
+          "distance_to_unrescued": 21.9267138035515,
+          "near_unrescued": false,
+          "near_already_rescued_only": false,
+          "near_metal": true,
+          "decision_mode": "PROXIMITY",
+          "probability": 1.0
+        }
+      ]
+    },
+    {
+      "setting": "baseline_50",
+      "scenario": "regular",
+      "environment": "도심 침수 지역",
+      "seed": 73,
+      "requested_steps": 400,
+      "steps": 400,
+      "simulation_time": 160.0000000000012,
+      "initial_people": 10,
+      "current_ma": 50.0,
+      "relay_gain": 1.0,
+      "strength_factor": 1.0,
+      "sensor_range": 16.0,
+      "ping_proposals": 5,
+      "correct_proposals": 4,
+      "false_proposals": 1,
+      "unique_markers": 4,
+      "merged_marker_updates": 1,
+      "duplicates_near_rescued": 1,
+      "false_near_metal": 0,
+      "max_proposals_25_steps": 2,
+      "proposal_precision": 0.8,
+      "proposals_per_100_steps": 1.25,
+      "false_per_100_steps": 0.25,
+      "predicted_person_steps": 135,
+      "person_in_range_steps": 92,
+      "rescued": 7,
+      "path_length": 478.23250456790447,
+      "coverage": 0.6416666666666667,
+      "wall_seconds": 7.856543900008546,
+      "events": [
+        {
+          "step": 84,
+          "time": 33.599999999999945,
+          "position": [
+            87.0,
+            22.0
+          ],
+          "distance_to_unrescued": 2.1991838948550444,
+          "near_unrescued": true,
+          "near_already_rescued_only": false,
+          "near_metal": true,
+          "decision_mode": "WORLD_DELTA",
+          "probability": 0.0
+        },
+        {
+          "step": 114,
+          "time": 45.5999999999999,
+          "position": [
+            73.0,
+            72.0
+          ],
+          "distance_to_unrescued": 1.4413933856891632,
+          "near_unrescued": true,
+          "near_already_rescued_only": false,
+          "near_metal": false,
+          "decision_mode": "WORLD_DELTA",
+          "probability": 0.0
+        },
+        {
+          "step": 142,
+          "time": 56.79999999999986,
+          "position": [
+            90.0,
+            58.0
+          ],
+          "distance_to_unrescued": 2.2505295807167,
+          "near_unrescued": true,
+          "near_already_rescued_only": false,
+          "near_metal": false,
+          "decision_mode": "WORLD_DELTA",
+          "probability": 1.0
+        },
+        {
+          "step": 146,
+          "time": 58.39999999999986,
+          "position": [
+            93.79000000000002,
+            63.900000000000006
+          ],
+          "distance_to_unrescued": 7.1030915828752175,
+          "near_unrescued": false,
+          "near_already_rescued_only": true,
+          "near_metal": false,
+          "decision_mode": "ACCUMULATED",
+          "probability": 1.0
+        },
+        {
+          "step": 175,
+          "time": 69.99999999999991,
+          "position": [
+            100.0,
+            77.5
+          ],
+          "distance_to_unrescued": 0.987670497550517,
+          "near_unrescued": true,
+          "near_already_rescued_only": false,
+          "near_metal": true,
+          "decision_mode": "WORLD_DELTA",
+          "probability": 0.0
+        }
+      ]
+    },
+    {
+      "setting": "baseline_50",
+      "scenario": "regular",
+      "environment": "산업 시설",
+      "seed": 42,
+      "requested_steps": 400,
+      "steps": 400,
+      "simulation_time": 160.0000000000012,
+      "initial_people": 7,
+      "current_ma": 50.0,
+      "relay_gain": 1.0,
+      "strength_factor": 1.0,
+      "sensor_range": 16.0,
+      "ping_proposals": 10,
+      "correct_proposals": 4,
+      "false_proposals": 6,
+      "unique_markers": 10,
+      "merged_marker_updates": 0,
+      "duplicates_near_rescued": 0,
+      "false_near_metal": 2,
+      "max_proposals_25_steps": 2,
+      "proposal_precision": 0.4,
+      "proposals_per_100_steps": 2.5,
+      "false_per_100_steps": 1.5,
+      "predicted_person_steps": 86,
+      "person_in_range_steps": 158,
+      "rescued": 5,
+      "path_length": 466.7242739285262,
+      "coverage": 0.6620833333333334,
+      "wall_seconds": 7.072298700019019,
+      "events": [
+        {
+          "step": 38,
+          "time": 15.200000000000008,
+          "position": [
+            109.0,
+            43.0
+          ],
+          "distance_to_unrescued": 24.586552703030307,
+          "near_unrescued": false,
+          "near_already_rescued_only": false,
+          "near_metal": false,
+          "decision_mode": "WORLD_DELTA",
+          "probability": 0.0
+        },
+        {
+          "step": 60,
+          "time": 23.99999999999998,
+          "position": [
+            111.0,
+            9.0
+          ],
+          "distance_to_unrescued": 3.097681062615779,
+          "near_unrescued": true,
+          "near_already_rescued_only": false,
+          "near_metal": true,
+          "decision_mode": "WORLD_DELTA",
+          "probability": 0.0
+        },
+        {
+          "step": 110,
+          "time": 43.99999999999991,
+          "position": [
+            89.0,
+            31.0
+          ],
+          "distance_to_unrescued": 7.379894388256592,
+          "near_unrescued": false,
+          "near_already_rescued_only": false,
+          "near_metal": false,
+          "decision_mode": "WORLD_DELTA",
+          "probability": 0.0
+        },
+        {
+          "step": 131,
+          "time": 52.39999999999988,
+          "position": [
+            79.5,
+            35.75
+          ],
+          "distance_to_unrescued": 1.1892596360563341,
+          "near_unrescued": true,
+          "near_already_rescued_only": false,
+          "near_metal": false,
+          "decision_mode": "WORLD_DELTA",
+          "probability": 0.0
+        },
+        {
+          "step": 148,
+          "time": 59.199999999999854,
+          "position": [
+            66.1,
+            35.0
+          ],
+          "distance_to_unrescued": 2.097659225804461,
+          "near_unrescued": true,
+          "near_already_rescued_only": false,
+          "near_metal": true,
+          "decision_mode": "PROXIMITY",
+          "probability": 1.0
+        },
+        {
+          "step": 221,
+          "time": 88.40000000000018,
+          "position": [
+            44.0,
+            31.0
+          ],
+          "distance_to_unrescued": 12.412285637822029,
+          "near_unrescued": false,
+          "near_already_rescued_only": false,
+          "near_metal": false,
+          "decision_mode": "WORLD_DELTA",
+          "probability": 0.0
+        },
+        {
+          "step": 270,
+          "time": 108.00000000000045,
+          "position": [
+            16.0,
+            20.0
+          ],
+          "distance_to_unrescued": 3.169782791638018,
+          "near_unrescued": true,
+          "near_already_rescued_only": false,
+          "near_metal": false,
+          "decision_mode": "WORLD_DELTA",
+          "probability": 0.0
+        },
+        {
+          "step": 331,
+          "time": 132.4000000000008,
+          "position": [
+            25.900000000000002,
+            7.4655000000000005
+          ],
+          "distance_to_unrescued": 44.7696283896121,
+          "near_unrescued": false,
+          "near_already_rescued_only": false,
+          "near_metal": true,
+          "decision_mode": "ACCUMULATED",
+          "probability": 1.0
+        },
+        {
+          "step": 350,
+          "time": 140.0000000000009,
+          "position": [
+            37.50756805311126,
+            0.0
+          ],
+          "distance_to_unrescued": 46.77695195816961,
+          "near_unrescued": false,
+          "near_already_rescued_only": false,
+          "near_metal": false,
+          "decision_mode": "PROXIMITY",
+          "probability": 1.0
+        },
+        {
+          "step": 393,
+          "time": 157.20000000000115,
+          "position": [
+            37.544500000000006,
+            41.86225
+          ],
+          "distance_to_unrescued": 20.03858684754947,
+          "near_unrescued": false,
+          "near_already_rescued_only": false,
+          "near_metal": true,
+          "decision_mode": "ACCUMULATED",
+          "probability": 1.0
+        }
+      ]
+    },
+    {
+      "setting": "baseline_50",
+      "scenario": "regular",
+      "environment": "산업 시설",
+      "seed": 73,
+      "requested_steps": 400,
+      "steps": 400,
+      "simulation_time": 160.0000000000012,
+      "initial_people": 7,
+      "current_ma": 50.0,
+      "relay_gain": 1.0,
+      "strength_factor": 1.0,
+      "sensor_range": 16.0,
+      "ping_proposals": 5,
+      "correct_proposals": 2,
+      "false_proposals": 3,
+      "unique_markers": 5,
+      "merged_marker_updates": 0,
+      "duplicates_near_rescued": 0,
+      "false_near_metal": 3,
+      "max_proposals_25_steps": 2,
+      "proposal_precision": 0.4,
+      "proposals_per_100_steps": 1.25,
+      "false_per_100_steps": 0.75,
+      "predicted_person_steps": 80,
+      "person_in_range_steps": 51,
+      "rescued": 4,
+      "path_length": 487.5714005730779,
+      "coverage": 0.6070833333333333,
+      "wall_seconds": 6.798964499990689,
+      "events": [
+        {
+          "step": 66,
+          "time": 26.39999999999997,
+          "position": [
+            73.0,
+            64.1
+          ],
+          "distance_to_unrescued": 15.493954241493885,
+          "near_unrescued": false,
+          "near_already_rescued_only": false,
+          "near_metal": true,
+          "decision_mode": "FAST",
+          "probability": 1.0
+        },
+        {
+          "step": 172,
+          "time": 68.7999999999999,
+          "position": [
+            104.21000000000001,
+            6.505000000000001
+          ],
+          "distance_to_unrescued": 19.248117452843687,
+          "near_unrescued": false,
+          "near_already_rescued_only": false,
+          "near_metal": true,
+          "decision_mode": "ACCUMULATED",
+          "probability": 1.0
+        },
+        {
+          "step": 185,
+          "time": 73.99999999999997,
+          "position": [
+            95.0,
+            23.0
+          ],
+          "distance_to_unrescued": 1.8278751976745116,
+          "near_unrescued": true,
+          "near_already_rescued_only": false,
+          "near_metal": false,
+          "decision_mode": "WORLD_DELTA",
+          "probability": 0.0
+        },
+        {
+          "step": 211,
+          "time": 84.40000000000012,
+          "position": [
+            113.0,
+            47.0
+          ],
+          "distance_to_unrescued": 0.333822619009301,
+          "near_unrescued": true,
+          "near_already_rescued_only": false,
+          "near_metal": true,
+          "decision_mode": "WORLD_DELTA",
+          "probability": 0.0
+        },
+        {
+          "step": 400,
+          "time": 160.0000000000012,
+          "position": [
+            107.0,
+            21.9
+          ],
+          "distance_to_unrescued": 62.531263258355025,
+          "near_unrescued": false,
+          "near_already_rescued_only": false,
+          "near_metal": true,
+          "decision_mode": "PROXIMITY",
+          "probability": 1.0
+        }
+      ]
+    },
+    {
+      "setting": "baseline_50",
+      "scenario": "regular",
+      "environment": "주거 지역",
+      "seed": 42,
+      "requested_steps": 400,
+      "steps": 400,
+      "simulation_time": 160.0000000000012,
+      "initial_people": 14,
+      "current_ma": 50.0,
+      "relay_gain": 1.0,
+      "strength_factor": 1.0,
+      "sensor_range": 16.0,
+      "ping_proposals": 7,
+      "correct_proposals": 5,
+      "false_proposals": 2,
+      "unique_markers": 7,
+      "merged_marker_updates": 0,
+      "duplicates_near_rescued": 0,
+      "false_near_metal": 2,
+      "max_proposals_25_steps": 2,
+      "proposal_precision": 0.7142857142857143,
+      "proposals_per_100_steps": 1.7500000000000002,
+      "false_per_100_steps": 0.5,
+      "predicted_person_steps": 82,
+      "person_in_range_steps": 188,
+      "rescued": 5,
+      "path_length": 504.25791680399817,
+      "coverage": 0.8670833333333333,
+      "wall_seconds": 6.8556497000099625,
+      "events": [
+        {
+          "step": 71,
+          "time": 28.399999999999963,
+          "position": [
+            13.0,
+            65.0
+          ],
+          "distance_to_unrescued": 36.257857102306474,
+          "near_unrescued": false,
+          "near_already_rescued_only": false,
+          "near_metal": true,
+          "decision_mode": "PROXIMITY",
+          "probability": 1.0
+        },
+        {
+          "step": 95,
+          "time": 37.99999999999993,
+          "position": [
+            5.0,
+            31.0
+          ],
+          "distance_to_unrescued": 1.464440301029568,
+          "near_unrescued": true,
+          "near_already_rescued_only": false,
+          "near_metal": false,
+          "decision_mode": "WORLD_DELTA",
+          "probability": 0.0
+        },
+        {
+          "step": 107,
+          "time": 42.79999999999991,
+          "position": [
+            11.11,
+            17.295
+          ],
+          "distance_to_unrescued": 36.73368809920761,
+          "near_unrescued": false,
+          "near_already_rescued_only": false,
+          "near_metal": true,
+          "decision_mode": "ACCUMULATED",
+          "probability": 1.0
+        },
+        {
+          "step": 195,
+          "time": 78.00000000000003,
+          "position": [
+            61.0,
+            21.0
+          ],
+          "distance_to_unrescued": 0.26842410313408765,
+          "near_unrescued": true,
+          "near_already_rescued_only": false,
+          "near_metal": true,
+          "decision_mode": "WORLD_DELTA",
+          "probability": 0.0
+        },
+        {
+          "step": 282,
+          "time": 112.80000000000052,
+          "position": [
+            75.5,
+            75.0
+          ],
+          "distance_to_unrescued": 0.4806685573061795,
+          "near_unrescued": true,
+          "near_already_rescued_only": false,
+          "near_metal": false,
+          "decision_mode": "WORLD_DELTA",
+          "probability": 0.0
+        },
+        {
+          "step": 340,
+          "time": 136.00000000000085,
+          "position": [
+            115.0,
+            43.0
+          ],
+          "distance_to_unrescued": 0.84248520485843,
+          "near_unrescued": true,
+          "near_already_rescued_only": false,
+          "near_metal": false,
+          "decision_mode": "WORLD_DELTA",
+          "probability": 0.0
+        },
+        {
+          "step": 375,
+          "time": 150.00000000000105,
+          "position": [
+            106.4990234375,
+            14.97412109375
+          ],
+          "distance_to_unrescued": 0.32449060366513316,
+          "near_unrescued": true,
+          "near_already_rescued_only": false,
+          "near_metal": true,
+          "decision_mode": "WORLD_DELTA",
+          "probability": 0.0
+        }
+      ]
+    },
+    {
+      "setting": "baseline_50",
+      "scenario": "regular",
+      "environment": "주거 지역",
+      "seed": 73,
+      "requested_steps": 400,
+      "steps": 400,
+      "simulation_time": 160.0000000000012,
+      "initial_people": 14,
+      "current_ma": 50.0,
+      "relay_gain": 1.0,
+      "strength_factor": 1.0,
+      "sensor_range": 16.0,
+      "ping_proposals": 10,
+      "correct_proposals": 9,
+      "false_proposals": 1,
+      "unique_markers": 10,
+      "merged_marker_updates": 0,
+      "duplicates_near_rescued": 0,
+      "false_near_metal": 0,
+      "max_proposals_25_steps": 2,
+      "proposal_precision": 0.9,
+      "proposals_per_100_steps": 2.5,
+      "false_per_100_steps": 0.25,
+      "predicted_person_steps": 51,
+      "person_in_range_steps": 184,
+      "rescued": 13,
+      "path_length": 501.5407748151331,
+      "coverage": 0.8158333333333333,
+      "wall_seconds": 6.5487495999841485,
+      "events": [
+        {
+          "step": 7,
+          "time": 2.8,
+          "position": [
+            47.0,
+            18.0
+          ],
+          "distance_to_unrescued": 2.347806225265816,
+          "near_unrescued": true,
+          "near_already_rescued_only": false,
+          "near_metal": false,
+          "decision_mode": "WORLD_DELTA",
+          "probability": 0.0
+        },
+        {
+          "step": 54,
+          "time": 21.599999999999987,
+          "position": [
+            76.0,
+            9.0
+          ],
+          "distance_to_unrescued": 0.2641449478607453,
+          "near_unrescued": true,
+          "near_already_rescued_only": false,
+          "near_metal": false,
+          "decision_mode": "WORLD_DELTA",
+          "probability": 0.0
+        },
+        {
+          "step": 80,
+          "time": 31.99999999999995,
+          "position": [
+            110.89000000000001,
+            14.395
+          ],
+          "distance_to_unrescued": 1.0365954292588588,
+          "near_unrescued": true,
+          "near_already_rescued_only": false,
+          "near_metal": true,
+          "decision_mode": "FAST",
+          "probability": 1.0
+        },
+        {
+          "step": 81,
+          "time": 32.39999999999995,
+          "position": [
+            101.0,
+            3.0
+          ],
+          "distance_to_unrescued": 0.7796994989571191,
+          "near_unrescued": true,
+          "near_already_rescued_only": false,
+          "near_metal": false,
+          "decision_mode": "WORLD_DELTA",
+          "probability": 1.0
+        },
+        {
+          "step": 128,
+          "time": 51.19999999999988,
+          "position": [
+            84.0,
+            56.0
+          ],
+          "distance_to_unrescued": 2.192828879205473,
+          "near_unrescued": true,
+          "near_already_rescued_only": false,
+          "near_metal": false,
+          "decision_mode": "WORLD_DELTA",
+          "probability": 0.0
+        },
+        {
+          "step": 194,
+          "time": 77.60000000000002,
+          "position": [
+            73.0,
+            61.0
+          ],
+          "distance_to_unrescued": 1.665997726485019,
+          "near_unrescued": true,
+          "near_already_rescued_only": false,
+          "near_metal": false,
+          "decision_mode": "WORLD_DELTA",
+          "probability": 0.0
+        },
+        {
+          "step": 277,
+          "time": 110.8000000000005,
+          "position": [
+            48.5,
+            75.0
+          ],
+          "distance_to_unrescued": 35.79642949810662,
+          "near_unrescued": false,
+          "near_already_rescued_only": false,
+          "near_metal": false,
+          "decision_mode": "WORLD_DELTA",
+          "probability": 0.0
+        },
+        {
+          "step": 321,
+          "time": 128.40000000000074,
+          "position": [
+            21.5,
+            52.5
+          ],
+          "distance_to_unrescued": 1.609209434558478,
+          "near_unrescued": true,
+          "near_already_rescued_only": false,
+          "near_metal": false,
+          "decision_mode": "WORLD_DELTA",
+          "probability": 0.0
+        },
+        {
+          "step": 350,
+          "time": 140.0000000000009,
+          "position": [
+            19.0,
+            27.0
+          ],
+          "distance_to_unrescued": 3.909994105851808,
+          "near_unrescued": true,
+          "near_already_rescued_only": false,
+          "near_metal": false,
+          "decision_mode": "WORLD_DELTA",
+          "probability": 0.0
+        },
+        {
+          "step": 389,
+          "time": 155.60000000000113,
+          "position": [
+            12.0,
+            19.0
+          ],
+          "distance_to_unrescued": 3.00866412375137,
+          "near_unrescued": true,
+          "near_already_rescued_only": false,
+          "near_metal": false,
+          "decision_mode": "WORLD_DELTA",
+          "probability": 1.0
+        }
+      ]
+    },
+    {
+      "setting": "baseline_50",
+      "scenario": "cluster_none",
+      "environment": "도심 침수 지역",
+      "seed": 42,
+      "requested_steps": 400,
+      "steps": 400,
+      "simulation_time": 160.0000000000012,
+      "initial_people": 0,
+      "current_ma": 50.0,
+      "relay_gain": 1.0,
+      "strength_factor": 1.0,
+      "sensor_range": 16.0,
+      "ping_proposals": 2,
+      "correct_proposals": 0,
+      "false_proposals": 2,
+      "unique_markers": 2,
+      "merged_marker_updates": 0,
+      "duplicates_near_rescued": 0,
+      "false_near_metal": 2,
+      "max_proposals_25_steps": 1,
+      "proposal_precision": 0.0,
+      "proposals_per_100_steps": 0.5,
+      "false_per_100_steps": 0.5,
+      "predicted_person_steps": 5,
+      "person_in_range_steps": 0,
+      "rescued": 0,
+      "path_length": 475.12838490768326,
+      "coverage": 0.7270833333333333,
+      "wall_seconds": 6.294578100001672,
+      "events": [
+        {
+          "step": 4,
+          "time": 1.6,
+          "position": [
+            68.0,
+            40.0
+          ],
+          "distance_to_unrescued": null,
+          "near_unrescued": false,
+          "near_already_rescued_only": false,
+          "near_metal": true,
+          "decision_mode": "WORLD_DELTA",
+          "probability": 0.0
+        },
+        {
+          "step": 390,
+          "time": 156.00000000000114,
+          "position": [
+            52.25,
+            48.0
+          ],
+          "distance_to_unrescued": null,
+          "near_unrescued": false,
+          "near_already_rescued_only": false,
+          "near_metal": true,
+          "decision_mode": "WORLD_DELTA",
+          "probability": 0.0
+        }
+      ]
+    },
+    {
+      "setting": "baseline_50",
+      "scenario": "cluster_none",
+      "environment": "도심 침수 지역",
+      "seed": 73,
+      "requested_steps": 400,
+      "steps": 400,
+      "simulation_time": 160.0000000000012,
+      "initial_people": 0,
+      "current_ma": 50.0,
+      "relay_gain": 1.0,
+      "strength_factor": 1.0,
+      "sensor_range": 16.0,
+      "ping_proposals": 1,
+      "correct_proposals": 0,
+      "false_proposals": 1,
+      "unique_markers": 1,
+      "merged_marker_updates": 0,
+      "duplicates_near_rescued": 0,
+      "false_near_metal": 1,
+      "max_proposals_25_steps": 1,
+      "proposal_precision": 0.0,
+      "proposals_per_100_steps": 0.25,
+      "false_per_100_steps": 0.25,
+      "predicted_person_steps": 181,
+      "person_in_range_steps": 0,
+      "rescued": 0,
+      "path_length": 478.23250456790447,
+      "coverage": 0.6416666666666667,
+      "wall_seconds": 8.122464699990815,
+      "events": [
+        {
+          "step": 19,
+          "time": 7.600000000000002,
+          "position": [
+            55.0,
+            54.0
+          ],
+          "distance_to_unrescued": null,
+          "near_unrescued": false,
+          "near_already_rescued_only": false,
+          "near_metal": true,
+          "decision_mode": "WORLD_DELTA",
+          "probability": 0.0
+        }
+      ]
+    },
+    {
+      "setting": "baseline_50",
+      "scenario": "cluster_none",
+      "environment": "산업 시설",
+      "seed": 42,
+      "requested_steps": 400,
+      "steps": 400,
+      "simulation_time": 160.0000000000012,
+      "initial_people": 0,
+      "current_ma": 50.0,
+      "relay_gain": 1.0,
+      "strength_factor": 1.0,
+      "sensor_range": 16.0,
+      "ping_proposals": 2,
+      "correct_proposals": 0,
+      "false_proposals": 2,
+      "unique_markers": 2,
+      "merged_marker_updates": 0,
+      "duplicates_near_rescued": 0,
+      "false_near_metal": 1,
+      "max_proposals_25_steps": 2,
+      "proposal_precision": 0.0,
+      "proposals_per_100_steps": 0.5,
+      "false_per_100_steps": 0.5,
+      "predicted_person_steps": 246,
+      "person_in_range_steps": 0,
+      "rescued": 0,
+      "path_length": 466.7242739285262,
+      "coverage": 0.6620833333333334,
+      "wall_seconds": 6.992869399982737,
+      "events": [
+        {
+          "step": 6,
+          "time": 2.4,
+          "position": [
+            92.0,
+            73.0
+          ],
+          "distance_to_unrescued": null,
+          "near_unrescued": false,
+          "near_already_rescued_only": false,
+          "near_metal": true,
+          "decision_mode": "WORLD_DELTA",
+          "probability": 0.0
+        },
+        {
+          "step": 30,
+          "time": 12.000000000000005,
+          "position": [
+            106.0,
+            57.875
+          ],
+          "distance_to_unrescued": null,
+          "near_unrescued": false,
+          "near_already_rescued_only": false,
+          "near_metal": false,
+          "decision_mode": "WORLD_DELTA",
+          "probability": 0.0
+        }
+      ]
+    },
+    {
+      "setting": "baseline_50",
+      "scenario": "cluster_none",
+      "environment": "산업 시설",
+      "seed": 73,
+      "requested_steps": 400,
+      "steps": 400,
+      "simulation_time": 160.0000000000012,
+      "initial_people": 0,
+      "current_ma": 50.0,
+      "relay_gain": 1.0,
+      "strength_factor": 1.0,
+      "sensor_range": 16.0,
+      "ping_proposals": 7,
+      "correct_proposals": 0,
+      "false_proposals": 7,
+      "unique_markers": 5,
+      "merged_marker_updates": 2,
+      "duplicates_near_rescued": 0,
+      "false_near_metal": 4,
+      "max_proposals_25_steps": 3,
+      "proposal_precision": 0.0,
+      "proposals_per_100_steps": 1.7500000000000002,
+      "false_per_100_steps": 1.7500000000000002,
+      "predicted_person_steps": 34,
+      "person_in_range_steps": 0,
+      "rescued": 0,
+      "path_length": 487.5714005730779,
+      "coverage": 0.6070833333333333,
+      "wall_seconds": 6.63633049998316,
+      "events": [
+        {
+          "step": 8,
+          "time": 3.1999999999999997,
+          "position": [
+            81.0,
+            44.0
+          ],
+          "distance_to_unrescued": null,
+          "near_unrescued": false,
+          "near_already_rescued_only": false,
+          "near_metal": true,
+          "decision_mode": "WORLD_DELTA",
+          "probability": 0.0
+        },
+        {
+          "step": 66,
+          "time": 26.39999999999997,
+          "position": [
+            69.0,
+            55.0
+          ],
+          "distance_to_unrescued": null,
+          "near_unrescued": false,
+          "near_already_rescued_only": false,
+          "near_metal": true,
+          "decision_mode": "WORLD_DELTA",
+          "probability": 0.0
+        },
+        {
+          "step": 89,
+          "time": 35.59999999999994,
+          "position": [
+            66.0,
+            22.0
+          ],
+          "distance_to_unrescued": null,
+          "near_unrescued": false,
+          "near_already_rescued_only": false,
+          "near_metal": false,
+          "decision_mode": "WORLD_DELTA",
+          "probability": 0.0
+        },
+        {
+          "step": 189,
+          "time": 75.6,
+          "position": [
+            97.5,
+            30.75
+          ],
+          "distance_to_unrescued": null,
+          "near_unrescued": false,
+          "near_already_rescued_only": false,
+          "near_metal": false,
+          "decision_mode": "WORLD_DELTA",
+          "probability": 0.0
+        },
+        {
+          "step": 278,
+          "time": 111.2000000000005,
+          "position": [
+            81.0,
+            30.0
+          ],
+          "distance_to_unrescued": null,
+          "near_unrescued": false,
+          "near_already_rescued_only": false,
+          "near_metal": true,
+          "decision_mode": "WORLD_DELTA",
+          "probability": 1.0
+        },
+        {
+          "step": 279,
+          "time": 111.6000000000005,
+          "position": [
+            87.60499999999999,
+            45.31
+          ],
+          "distance_to_unrescued": null,
+          "near_unrescued": false,
+          "near_already_rescued_only": false,
+          "near_metal": true,
+          "decision_mode": "ACCUMULATED",
+          "probability": 1.0
+        },
+        {
+          "step": 281,
+          "time": 112.40000000000052,
+          "position": [
+            97.79000000000002,
+            26.705000000000002
+          ],
+          "distance_to_unrescued": null,
+          "near_unrescued": false,
+          "near_already_rescued_only": false,
+          "near_metal": false,
+          "decision_mode": "ACCUMULATED",
+          "probability": 1.0
+        }
+      ]
+    },
+    {
+      "setting": "baseline_50",
+      "scenario": "cluster_none",
+      "environment": "주거 지역",
+      "seed": 42,
+      "requested_steps": 400,
+      "steps": 400,
+      "simulation_time": 160.0000000000012,
+      "initial_people": 0,
+      "current_ma": 50.0,
+      "relay_gain": 1.0,
+      "strength_factor": 1.0,
+      "sensor_range": 16.0,
+      "ping_proposals": 5,
+      "correct_proposals": 0,
+      "false_proposals": 5,
+      "unique_markers": 5,
+      "merged_marker_updates": 0,
+      "duplicates_near_rescued": 0,
+      "false_near_metal": 3,
+      "max_proposals_25_steps": 2,
+      "proposal_precision": 0.0,
+      "proposals_per_100_steps": 1.25,
+      "false_per_100_steps": 1.25,
+      "predicted_person_steps": 213,
+      "person_in_range_steps": 0,
+      "rescued": 0,
+      "path_length": 504.25791680399817,
+      "coverage": 0.8670833333333333,
+      "wall_seconds": 6.7002995000220835,
+      "events": [
+        {
+          "step": 3,
+          "time": 1.2000000000000002,
+          "position": [
+            51.0,
+            70.0
+          ],
+          "distance_to_unrescued": null,
+          "near_unrescued": false,
+          "near_already_rescued_only": false,
+          "near_metal": true,
+          "decision_mode": "WORLD_DELTA",
+          "probability": 0.0
+        },
+        {
+          "step": 25,
+          "time": 10.000000000000004,
+          "position": [
+            38.5,
+            65.25
+          ],
+          "distance_to_unrescued": null,
+          "near_unrescued": false,
+          "near_already_rescued_only": false,
+          "near_metal": true,
+          "decision_mode": "WORLD_DELTA",
+          "probability": 0.0
+        },
+        {
+          "step": 62,
+          "time": 24.799999999999976,
+          "position": [
+            26.5,
+            61.25
+          ],
+          "distance_to_unrescued": null,
+          "near_unrescued": false,
+          "near_already_rescued_only": false,
+          "near_metal": false,
+          "decision_mode": "WORLD_DELTA",
+          "probability": 0.0
+        },
+        {
+          "step": 214,
+          "time": 85.60000000000014,
+          "position": [
+            59.0,
+            46.25
+          ],
+          "distance_to_unrescued": null,
+          "near_unrescued": false,
+          "near_already_rescued_only": false,
+          "near_metal": false,
+          "decision_mode": "WORLD_DELTA",
+          "probability": 0.0
+        },
+        {
+          "step": 267,
+          "time": 106.80000000000044,
+          "position": [
+            69.5,
+            58.5
+          ],
+          "distance_to_unrescued": null,
+          "near_unrescued": false,
+          "near_already_rescued_only": false,
+          "near_metal": true,
+          "decision_mode": "WORLD_DELTA",
+          "probability": 0.0
+        }
+      ]
+    },
+    {
+      "setting": "baseline_50",
+      "scenario": "cluster_none",
+      "environment": "주거 지역",
+      "seed": 73,
+      "requested_steps": 400,
+      "steps": 400,
+      "simulation_time": 160.0000000000012,
+      "initial_people": 0,
+      "current_ma": 50.0,
+      "relay_gain": 1.0,
+      "strength_factor": 1.0,
+      "sensor_range": 16.0,
+      "ping_proposals": 3,
+      "correct_proposals": 0,
+      "false_proposals": 3,
+      "unique_markers": 3,
+      "merged_marker_updates": 0,
+      "duplicates_near_rescued": 0,
+      "false_near_metal": 2,
+      "max_proposals_25_steps": 2,
+      "proposal_precision": 0.0,
+      "proposals_per_100_steps": 0.75,
+      "false_per_100_steps": 0.75,
+      "predicted_person_steps": 280,
+      "person_in_range_steps": 0,
+      "rescued": 0,
+      "path_length": 501.5407748151331,
+      "coverage": 0.8158333333333333,
+      "wall_seconds": 6.232003599987365,
+      "events": [
+        {
+          "step": 8,
+          "time": 3.1999999999999997,
+          "position": [
+            51.0,
+            22.0
+          ],
+          "distance_to_unrescued": null,
+          "near_unrescued": false,
+          "near_already_rescued_only": false,
+          "near_metal": false,
+          "decision_mode": "WORLD_DELTA",
+          "probability": 0.0
+        },
+        {
+          "step": 31,
+          "time": 12.400000000000006,
+          "position": [
+            54.0,
+            9.0
+          ],
+          "distance_to_unrescued": null,
+          "near_unrescued": false,
+          "near_already_rescued_only": false,
+          "near_metal": true,
+          "decision_mode": "WORLD_DELTA",
+          "probability": 0.0
+        },
+        {
+          "step": 244,
+          "time": 97.6000000000003,
+          "position": [
+            51.375,
+            35.375
+          ],
+          "distance_to_unrescued": null,
+          "near_unrescued": false,
+          "near_already_rescued_only": false,
+          "near_metal": true,
+          "decision_mode": "WORLD_DELTA",
+          "probability": 0.0
+        }
+      ]
+    }
+  ],
+  "metal_human_coefficient_ratio": 40000000,
+  "evaluated_version": "V2.1",
+  "cluster_strength_scaled": true
+}
