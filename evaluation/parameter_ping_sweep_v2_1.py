@@ -132,6 +132,7 @@ def summarize(records: list[dict]) -> list[dict]:
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--steps", type=int, default=400)
+    parser.add_argument("--output-prefix", default="parameter_ping_sweep")
     parser.add_argument("--workers", type=int, default=3)
     parser.add_argument("--seeds", type=int, nargs="+", default=[42, 73])
     parser.add_argument("--settings", nargs="+", choices=list(SETTINGS), default=list(SETTINGS))
@@ -147,7 +148,7 @@ def main() -> None:
              for scenario in args.scenarios for env in ENVIRONMENT_PRESETS for seed in args.seeds]
     records = []
     started = time.perf_counter()
-    partial = output / "parameter_ping_sweep_partial_v2_1.jsonl"
+    partial = output / f"{args.output_prefix}_partial_v2_1.jsonl"
     with partial.open("w", encoding="utf-8") as stream, ProcessPoolExecutor(max_workers=args.workers) as pool:
         jobs = {pool.submit(run_case, task): task for task in tasks}
         for future in as_completed(jobs):
@@ -168,8 +169,8 @@ def main() -> None:
                               "proximity_precision_not_identity_accuracy", "rescues_may_occur_later_at_old_pins"],
               "weights_unchanged": True, "weights": weights, "summary": summary,
               "records": sorted(records, key=lambda r: (r["scenario"], r["setting"], r["environment"], r["seed"]))}
-    (output / "parameter_ping_sweep_v2_1.json").write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8")
-    with (output / "parameter_ping_sweep_v2_1.csv").open("w", newline="", encoding="utf-8-sig") as stream:
+    (output / f"{args.output_prefix}_v2_1.json").write_text(json.dumps(report, ensure_ascii=False, indent=2), encoding="utf-8")
+    with (output / f"{args.output_prefix}_v2_1.csv").open("w", newline="", encoding="utf-8-sig") as stream:
         writer = csv.DictWriter(stream, fieldnames=list(summary[0]))
         writer.writeheader()
         writer.writerows(summary)

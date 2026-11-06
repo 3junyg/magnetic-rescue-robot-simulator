@@ -1,3 +1,5 @@
+from matplotlib.colors import PowerNorm
+from config_v2_1 import METAL_SIGNAL_MULTIPLIER
 import matplotlib.pyplot as plt
 from matplotlib.patches import Circle
 import numpy as np
@@ -53,8 +55,7 @@ def draw_smooth_perception(axis, board: Board, robot_perception: bool = True) ->
         extent=[0, BOARD_WIDTH, 0, BOARD_HEIGHT],
         cmap="YlOrBr",
         alpha=0.62,
-        vmin=0.0,
-        vmax=25.0,
+        norm=PowerNorm(gamma=0.5, vmin=0.0, vmax=25.0 * METAL_SIGNAL_MULTIPLIER * getattr(getattr(board.sensor, "field_model", None), "strength_factor", 1.0), clip=True),
         interpolation="bicubic",
         resample=True,
         zorder=1,
