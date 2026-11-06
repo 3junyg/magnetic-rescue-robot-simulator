@@ -1,3 +1,4 @@
+from config_v2 import METAL_SIGNAL_MULTIPLIER
 import numpy as np
 
 from config_v2 import BOARD_HEIGHT, BOARD_WIDTH
@@ -24,7 +25,7 @@ def configure_cluster_scene(board, people_mode: str = 'none') -> None:
             if board._is_free(point, 0.3):
                 metal.position = point
                 metal.size = rng.uniform(1.5, 4.5)
-                metal.strength = rng.uniform(24.0, 52.0)
+                metal.strength = rng.uniform(24.0, 52.0) * METAL_SIGNAL_MULTIPLIER
                 metal.orientation = rng.uniform(-np.pi, np.pi)
                 break
     if people_mode == 'none':

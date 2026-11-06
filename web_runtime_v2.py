@@ -1,4 +1,5 @@
 from __future__ import annotations
+from config_v2 import METAL_SIGNAL_MULTIPLIER
 
 import numpy as np
 
@@ -137,6 +138,7 @@ class WebSimulationSession:
             "rows": perception.rows,
             "columns": perception.columns,
             "cell_size": PERCEPTION_CELL_SIZE,
+            "color_max": float(25.0 * METAL_SIGNAL_MULTIPLIER * getattr(getattr(self.board.sensor, "field_model", None), "strength_factor", 1.0)),
             "obstacle_points": self._points(perception.obstacle_points[-900::2]),
             "metal_candidates": self._points(perception.metal_candidates()),
             "range_endpoints": self._points(self.board.range_scan.endpoints[::3]),
@@ -238,4 +240,3 @@ class WebSimulationSession:
             state.update(self._world_state())
             self.force_full_state = False
         return state
-
