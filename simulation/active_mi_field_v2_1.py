@@ -23,7 +23,9 @@ class ActiveMIFieldModel:
         self.scaling = signal_scaling(self.calibration)
         self.sensor_range = self.scaling["sensor_range"] if mode == "scaled_v2" else SENSOR_RANGE
         self.strength_factor = self.scaling["strength_factor"] if mode == "scaled_v2" else 1.0
-        self.v2_model = EnhancedMagneticFieldModel(self.sensor_range)
+        self.v2_model = EnhancedMagneticFieldModel(
+            self.sensor_range, stationary_metal_scan=self.profile.get("stationary_metal_scan", False)
+        )
         self.relay_summary = relay_summary(self.profile)
         self.relay_factor = complex(self.relay_summary["ratio_real"], self.relay_summary["ratio_imag"])
         self.background = np.array([24.0, -7.0, 39.0])

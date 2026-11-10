@@ -10,6 +10,11 @@ class MagneticFieldSensor:
         self.noise = noise
         self.rng = rng
         self.field_model = field_model or LegacyMagneticFieldModel()
+        profile = getattr(self.field_model, "profile", {})
+        self.noise_axis_scale = np.asarray(profile.get("sensor_noise_axis_scale", (1., 1., 1.)), dtype=float)
+        if (self.noise_axis_scale.shape != (3,) or not np.isfinite(self.noise_axis_scale).all()
+                or np.any(self.noise_axis_scale <= 0)):
+            raise ValueError("sensor_noise_axis_scale requires three positive finite values")
         self.bias = rng.normal(0.0, 0.25, 3)
         self.drift = np.zeros(3)
         self.mi_diagnostics = None
@@ -21,7 +26,7 @@ class MagneticFieldSensor:
         compensated = total - p["primary_cancellation_fraction"] * reference
         input_sigma = p["receiver_output_noise_rms_v"] / p["receiver_gain"]
         noise = self.rng.normal(0.0, input_sigma / np.sqrt(2.0), compensated.shape) + 1j * self.rng.normal(0.0, input_sigma / np.sqrt(2.0), compensated.shape)
-        encoded_error = self.bias + self.drift + self.rng.normal(0.0, self.noise, compensated.shape)
+        encoded_error = self.bias + self.drift + self.rng.normal(0.0, self.noise, compensated.shape) * self.noise_axis_scale
         noise += encoded_error * p["detector_input_v_per_unit"] * np.exp(1j * np.deg2rad(p["demodulation_phase_deg"]))
         output = (compensated + noise) * p["receiver_gain"]
         amplitudes = np.abs(output)
@@ -38,7 +43,7 @@ class MagneticFieldSensor:
             total = values[0]
         else:
             total = self.field_model.field_at(board.robot.position, board)
-            total += self.bias + self.drift + self.rng.normal(0.0, self.noise, 3)
+            total += self.bias + self.drift + self.rng.normal(0.0, self.noise, 3) * self.noise_axis_scale
             if hasattr(self.field_model, "calibration"):
                 self.mi_diagnostics = {"calibration": self.field_model.calibration.status(), "output_rms_v": [],
                                        "clipped": False, "signal_mode": self.field_model.profile.get("signal_mode", "scaled_v2"),
@@ -69,5 +74,5 @@ class MagneticFieldSensor:
         else:
             vectors = self.field_model.scan_at(points, position, board)
             vectors += self.bias + self.drift
-            vectors += self.rng.normal(0.0, self.noise, vectors.shape)
+            vectors += self.rng.normal(0.0, self.noise, vectors.shape) * self.noise_axis_scale
         return MagneticScan(points, vectors, np.linalg.norm(vectors, axis=1), radius)

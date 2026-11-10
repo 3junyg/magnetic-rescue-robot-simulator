@@ -66,3 +66,7 @@ PC용 앱 모음은 `python local_apps_v2_1/open_apps_v2_1.py`입니다.
 라이선스는 MIT입니다.
 
 [4,000만 배 핑 검사 결과](EXTREME_RATIO_RESULTS.md)
+
+## V2.1.1 실측 보정 앱
+
+`python measured_coil_app_v2_1.py`로 실행합니다. [변경 사항과 검증 결과](CHANGELOG_v2_1_1.md)

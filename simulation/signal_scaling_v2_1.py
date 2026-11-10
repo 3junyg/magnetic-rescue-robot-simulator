@@ -20,7 +20,9 @@ def signal_scaling(calibration: MICalibration) -> dict:
     theory_v = calibration.direct_transfer(REFERENCE_DISTANCE_M) * p["tx_current_rms_a"]
     correction = float(np.median(calibration.correction)) if len(calibration.correction) else 1.0
     relay = relay_summary(p)
-    factor = float(theory_v / REFERENCE_VOLTAGE_V * correction * relay["gain"])
+    measured_factor = p.get("coil_layout_strength_factor")
+    factor = float(theory_v / REFERENCE_VOLTAGE_V * correction * relay["gain"]
+                   if measured_factor is None else measured_factor)
     if not math.isfinite(factor) or factor <= 0:
         raise ValueError("신호 배율은 유한한 양수여야 합니다.")
     raw_range = SENSOR_RANGE * factor ** (1 / RANGE_EXPONENT)
@@ -29,4 +31,5 @@ def signal_scaling(calibration: MICalibration) -> dict:
             "raw_sensor_range": raw_range, "range_clipped": radius != raw_range,
             "range_exponent": RANGE_EXPONENT, "reference_distance_m": REFERENCE_DISTANCE_M,
             "transfer_correction": correction, "relay_gain": relay["gain"],
-            "model": "v2_amplitude_and_range_only", "range_relation": "synthetic_not_measured"}
+            "model": "v2_amplitude_and_range_only" if measured_factor is None else "measured_coil_layout_relative_strength",
+            "range_relation": "synthetic_not_measured"}

@@ -14,8 +14,9 @@ class MagneticFieldModel(Protocol):
 
 
 class LegacyMagneticFieldModel:
-    def __init__(self, sensor_range: float = SENSOR_RANGE) -> None:
+    def __init__(self, sensor_range: float = SENSOR_RANGE, *, stationary_metal_scan: bool = False) -> None:
         self.sensor_range = sensor_range
+        self.stationary_metal_scan = stationary_metal_scan
 
     def field_at(self, position: np.ndarray, board) -> np.ndarray:
         total = np.array([24.0, -7.0, 39.0], dtype=float)
@@ -44,7 +45,8 @@ class LegacyMagneticFieldModel:
     def scan_at(self, points: np.ndarray, robot_position: np.ndarray, board) -> np.ndarray:
         vectors = np.tile(np.array([24.0, -7.0, 39.0]), (len(points), 1))
         for metal in board.metals:
-            if np.linalg.norm(metal.position - robot_position) > self.sensor_range:
+            # A world-space sample of static metal should not jump when the robot moves.
+            if not self.stationary_metal_scan and np.linalg.norm(metal.position - robot_position) > self.sensor_range:
                 continue
             distances = np.linalg.norm(points - metal.position, axis=1)
             active = (distances > 0.01) & (distances <= self.sensor_range)
