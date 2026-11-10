@@ -1,1 +1,1 @@
-from server_v2_1 import app_v2_1 as app
+from server_v2 import app_v2 as app

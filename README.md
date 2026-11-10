@@ -1,4 +1,4 @@
-# Magnetic Rescue Robot Simulator — V2.1
+# Magnetic Rescue Robot Simulator — V2
 
 ## 4,000만 배 조건
 
@@ -9,60 +9,93 @@ CNN과 핑 조건은 재학습·변경하지 않았으므로 이 조건에서의
 아래의 기존 검증 수치는 별도 표기가 없다면 4,000만 배 전환 이전 결과입니다.
 
 
-자기장 관측으로 사람 후보를 추정하고 환경을 탐색하는 합성 시뮬레이터입니다.
-main은 최신 공개 버전 V2.1입니다. V1은 v1.0.0 태그와 Release에 그대로 보존되며, V2는 v2 브랜치 및 v2.0.0 태그에 있습니다. V2.1 고정 배포본은 v2.1.0 태그와 Release에서 받을 수 있습니다.
+자기장 관측으로 사람의 존재와 위치를 추정하고, 로봇이 환경을 탐색하는 Python 시뮬레이터입니다. V2는 탐지 후보 재검증, 핑 판단 분리, 좁은 통로 이동, 구역별 순찰과 짧은 왕복 방지를 추가했습니다.
 
-## 실행
+이 버전의 자기장은 합성 모델입니다. 시뮬레이션 내 분류 성적을 실제 인체 탐지 성능으로 해석하지 않습니다.
 
-Python 3.12 환경에서 검사했습니다. 필요한 학습 모델이 포함되어 있습니다.
+## 버전
+
+- [V1 코드](https://github.com/3junyg/magnetic-rescue-robot-simulator/tree/v1.0.0)
+- [V2 코드](https://github.com/3junyg/magnetic-rescue-robot-simulator/tree/v2.0.0)
+- [Release 다운로드](https://github.com/3junyg/magnetic-rescue-robot-simulator/releases)
+
+`main`과 `v2` 브랜치는 현재 V2를 제공합니다. 최초 V2 배포본은 `v2.0.0` 태그에서 받을 수 있습니다.
+
+## 시작하기
+
+Python 3.12 환경에서 검증했습니다. 저장소 루트에서 실행합니다. 배포에 필요한 학습 모델이 포함돼 있어 재학습할 필요가 없습니다.
 
 ```powershell
+git clone --branch v2.0.0 --single-branch https://github.com/3junyg/magnetic-rescue-robot-simulator.git
+cd magnetic-rescue-robot-simulator
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1
 python -m pip install -r requirements.txt
-python desktop_app.py
-streamlit run app.py
-uvicorn server:app --host 127.0.0.1 --port 8000
+python local_apps_v2/open_apps_v2.py
 ```
 
-PC용 앱 모음은 `python local_apps_v2_1/open_apps_v2_1.py`입니다.
-기존 Streamlit의 app.py 및 Render의 server:app 실행 경로를 유지합니다.
+개별 앱도 바로 실행할 수 있습니다.
 
-## V2 대비 변경
+```powershell
+python desktop_app_v2.py
+python smooth_perception_app_v2.py
+streamlit run app_v2.py
+```
 
-- 예상 설계 또는 직접 입력한 실험 조건·결과를 적용하는 자기장 설정 창.
-- 기본값은 V2와 동일하게 유지하고, 설정 변경은 사람·금속의 공통 반응 배율과 실제 센서 범위에만 반영.
-- 실제 자기장 스캔, 지형 센서, 특징 구간·위치 추정, 기본/Smooth 화면에 동일한 범위 적용.
-- 중계 코일 사용 여부·개수·간격·축으로 예상 전달 배율 계산.
-- 적용 및 예상값으로 초기화. CNN 가중치·핑 판단 기준은 V2 것을 유지.
+앱에서 `CNN Agent` 모드를 선택하고 실행합니다. 실행·정지·리셋·랜덤 배치·로봇 인식 화면 전환을 지원합니다. 로컬 앱 선택 메뉴에는 기본, Smooth, 추가 노이즈, 노이즈 대응 모델, 좁은 통로 시각화가 있습니다. 로컬 창에는 GUI와 Tk 지원 환경이 필요합니다.
 
-사람의 실제 좌표는 신호 생성·평가·구조 처리에 사용하며 CNN 입력으로 전달하지 않습니다.
-실제 인체의 와전류 반응이나 현실의 탐지 거리를 검증한 모델은 아닙니다.
-센서 범위는 16×반응 배율의 세제곱근이라는 합성 가정으로 환산합니다.
-코일 간 실험값은 전달 보정에 사용하며, 인체 반응 계수를 실측한 것으로 해석하지 않습니다.
+## 현재 작동 구조
 
-## 검증 및 현재 한계
+```text
+합성 환경 / 센서
+  ├─ 자기장 관측 → 변화 예측·잔차 CNN → 후보 선택 → 후보 검증 CNN → 핑 결정
+  │                                                        └─ 동일 좌표의 시간 변화 검사
+  └─ 거리 관측 → 벽 인식·관측 지도 → 경로 계획·순찰·반복 감시 → 로봇 action
+핑 → 시뮬레이터의 구조 판정 → 해당 사람의 이동·자기장 중단
+```
 
-- 기본 설정은 세 환경에서 각각 600 timestep 동안 V2의 센서·이동·확률·핑·구조 결과와 일치.
-- 전류·중계 설정 8개, 환경 3개, seed 2개, 시나리오 3개를 총 144회·57,275 timestep 검사.
-- 사람 없는 일반 금속/금속 밀집 환경 96회에서 핑 제안 0회.
-- 사람이 있는 환경에서는 높은 배율에서 위치 오탐이 증가했습니다. 아래는 각 설정의 6회 합계입니다.
+탐지기는 `RobotObservation`에 담긴 자기장·로봇 이동·거리 관측을 사용합니다. 사람·금속의 실제 좌표는 환경 생성, 학습 정답, 평가 및 구조 판정에서 사용합니다. 로봇 자신의 위치·방향은 현재 시뮬레이션에서 이상적인 자기 위치 추정값으로 취급합니다.
 
-| 반응 배율 | 핑 제안 | 잘못된 위치의 제안 |
-|---|---:|---:|
-| 1배 | 35 | 1 |
-| 2배 | 39 | 3 |
-| 4배 | 57 | 19 |
-| 약 8.03배 | 73 | 37 |
-| 약 9.89배 | 69 | 40 |
+학습된 탐색 정책을 불러오지만, 현재 경로 계획·구역 순찰·탈출·짧은 왕복 방지는 규칙 기반 제어와 결합돼 있습니다.
 
-잘못된 위치는 제안 시점에 아직 구조되지 않은 사람이 거리 6.5 이내에 없는 경우입니다.
-화면에서 병합된 마커 수가 아니라 핑 제안 횟수이며, 실측 탐지 정확도가 아닙니다.
-높은 배율의 오탐 개선·추가 학습은 아직 적용하지 않았습니다.
+## 폴더
 
-- [상세 설정·수식·실행 방법](README_v2_1.md)
-- [V2 대비 변경 사항](CHANGELOG_v2_1.md)
-- [설정별 검사 원본](evaluation/results/parameter_ping_sweep_v2_1.json)
-- [설정별 검사 요약 CSV](evaluation/results/parameter_ping_sweep_v2_1.csv)
+| 경로 | 역할 |
+|---|---|
+| `simulation/` | 환경, 엔티티, 자기장 모델, 센서, 로봇 인식 지도 |
+| `integration/` | 탐지·핑·이동 제어·구조 처리 연결 |
+| `navigation/` | 학습 정책, 안전 경로, 순찰 스케줄러, 반복 이동 감시 |
+| `ml/`, `models/` | 신경망·특징 추출 코드와 배포 모델 |
+| `training/` | 합성 데이터 생성과 학습 스크립트 |
+| `ui/`, `local_apps_v2/` | Matplotlib 화면과 PC용 실행 메뉴 |
+| `evaluation/` | headless 검증, 성능 비교, 위치 평가 |
+| `web_static/` | FastAPI 웹 화면의 HTML·JavaScript·CSS |
+| `docs/` | 구조 설명, V1 대비 변경 사항, 검증 결과 |
 
-라이선스는 MIT입니다.
+## 상세 문서
+
+- [구조와 작동 방식](docs/ARCHITECTURE_v2.md)
+- [V1 대비 변경 사항](docs/CHANGELOG_v2.md)
+- [모델 학습·검증 결과와 해석 범위](docs/VALIDATION_v2.md)
+- [V2 Release 설명](docs/RELEASE_NOTES_v2.md)
+
+## 검증 실행
+
+```powershell
+python -m evaluation.verifier_smoke_v2
+python -m evaluation.narrow_navigation_v2 --bend --steps 300 --output evaluation/results/narrow_check_v2.json
+python -m evaluation.navigation_cycle_v2 --seeds 73 99 --steps 800 --output evaluation/results/cycle_check_v2.json
+python -m evaluation.patrol_coverage_v2 --only-new --seeds 73 --kinds split random --steps 2200 --output evaluation/results/patrol_check_v2.json
+```
+
+## 웹 서버
+
+```powershell
+uvicorn server_v2:app_v2 --host 127.0.0.1 --port 8000
+```
+
+브라우저에서 `http://127.0.0.1:8000`에 접속합니다. Streamlit 실행 파일은 `app_v2.py`입니다. Render 구성 예시는 `render_v2.yaml`이며, 이번 Release는 기존 Render 서비스의 배포 대상을 변경하지 않습니다.
+
+합성 학습 데이터, 중간 체크포인트, 캐시와 대용량 실행 추적은 배포본에서 제외합니다. 학습을 다시 진행하려면 `training/`의 생성기를 먼저 실행해야 합니다. 라이선스는 MIT입니다.
 
 [4,000만 배 핑 검사 결과](EXTREME_RATIO_RESULTS.md)

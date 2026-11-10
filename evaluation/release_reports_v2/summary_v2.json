@@ -1,0 +1,41 @@
+{
+  "version": "v2.0.0",
+  "provenance": "Saved local headless results from the V2 source; not real-world sensor measurements or V1/V2 controlled accuracy comparison.",
+  "navigation": {
+    "source": "short_backtrack_navigation_v2.json",
+    "environments": 3,
+    "seeds": [73, 99],
+    "cases": 6,
+    "steps_per_case": 800,
+    "cancelled_backtracks": 11,
+    "wall_intrusions": 0,
+    "observed_coverage_min": 0.87625,
+    "observed_coverage_max": 0.9404166666666667
+  },
+  "narrow_passages": {
+    "source": "short_backtrack_narrow_final_v2.json",
+    "widths": [2.6, 2.8, 3.2, 4.0],
+    "seeds": [11, 73, 99],
+    "cases": 12,
+    "passed": 12,
+    "blocked_forward": 0,
+    "wall_intrusions": 0
+  },
+  "patrol": {
+    "source": "short_backtrack_patrol_v2.json",
+    "cases": 2,
+    "seed": 73,
+    "steps_per_case": 2200,
+    "region_size": 8.0,
+    "reachable_regions_per_case": 150,
+    "visited_regions_per_case": 150,
+    "wall_intrusions": 0
+  },
+  "model_sha256": {
+    "models/candidate_verifier/best_candidate_verifier_v2.pth": "59b68bc89f8deada47985c2c9f6130ecbd5aa3b0e39d7ff73c184fda082a3fda",
+    "models/coverage_agent/best_coverage_agent_v2.pth": "99510362150f82c6b843ae2342a1216fa89eb835596afc8438ce39510316f3f0",
+    "models/human_detector/best_human_transition_detector_v2.pth": "f1ba3081aa0704ea5717406d8defaf9c515c9a4e24930bbe49afef5c9aa2a252",
+    "models/human_detector_noise_robust/best_human_transition_detector_v2.pth": "501a3c335f3654bc1fcbd2c8534c6a48837da041bb0c75c5c8ddf67c6d2f9e89",
+    "models/human_detector_v4/best_temporal_human_models_v2.pth": "4b5048eaaff65657aa340acf05d5f2195fc5ef8453d40eb40de418aa94dbe2a2"
+  }
+}

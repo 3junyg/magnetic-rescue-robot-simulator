@@ -1,4 +1,4 @@
-from desktop_app_v2_1 import DesktopSimulationApp
+from desktop_app_v2 import DesktopSimulationApp
 
 
 if __name__ == "__main__":

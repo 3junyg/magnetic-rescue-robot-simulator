@@ -1,4 +1,4 @@
-from app_v2_1 import main
+from app_v2 import main
 
 
 if __name__ == "__main__":
